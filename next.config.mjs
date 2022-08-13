@@ -16,6 +16,6 @@ export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["via.placeholder.com"],
+    domains: ["raw.githubusercontent.com"],
   },
 });

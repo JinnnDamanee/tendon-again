@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Setting from "./Setting";
 import { IoCaretForwardOutline } from 'react-icons/io5'
 import { IconType } from "react-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import ResumeList from "./SelectList/ResumeList";
 
@@ -17,6 +17,7 @@ enum modeType {
 }
 
 const DashBoard = () => {
+    const dashboardRef = useRef(null)
     const [mode, setMode] = useState<modeType>(modeType.main);
 
     // const container = {
@@ -37,8 +38,9 @@ const DashBoard = () => {
                     width: mode === modeType.main ? "700px" : "350px",
                 }}
                 exit={{ opacity: 1, y: -100, scale: 0 }}
-                drag
-                dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
+                drag={mode === modeType.main ? false : true}
+                ref={dashboardRef}
+                dragConstraints={dashboardRef}
             >
 
 

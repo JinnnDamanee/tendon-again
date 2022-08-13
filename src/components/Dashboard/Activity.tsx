@@ -17,7 +17,7 @@ const ActivityBox = ({ isActive }: ActivityBox) => {
 
 
     return (
-        <motion.div className={`${isActive ? 'bg-purple-light' : 'bg-gray-light'} h-4 w-4 hover:brightness-150`}
+        <motion.div className={`${isActive ? 'bg-gradient-to-bl from-purple-neon to-purple-light' : 'bg-gray-light'} h-4 w-4 hover:brightness-150`}
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.5 }}

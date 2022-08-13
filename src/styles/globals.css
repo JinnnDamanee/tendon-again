@@ -6,4 +6,8 @@
   html {
     font-family: "Roboto", sans-serif;
   }
+  ::selection {
+    background: #f5f5f5;
+    color: #000;
+  }
 }
