@@ -10,8 +10,8 @@ LMS Extension/Addon/Stanalone? on MycourseVille (MCV)
 
 ## Backend Stack
 
-- Waited for Yod's Repo
+- Waited for Yod's Repo -> LINK
 
-## Demo
+## CodeSandBox 
 
-Haven't finished it yet :(
+- Just a snapshot, Not the current one! -> [CodeSandBox](https://codesandbox.io/s/holy-moon-ey3ii0) 
