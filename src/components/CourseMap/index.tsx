@@ -1,6 +1,6 @@
 import CourseNode, { CourseNodeProps } from "./CourseNode";
 import { motion } from 'framer-motion'
-import BreadCrumbNav from "./BreadcrumbNav";
+import BreadCrumbNav from "./BreadCrumbNav";
 interface CourseMapProps {
     CourseId: number
 }

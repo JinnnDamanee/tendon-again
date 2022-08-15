@@ -17,8 +17,8 @@ const StatList: React.FC<{ name: string }> = ({ name }) => {
         <motion.main className="text-white bg-gradient-to-bl from-purple-neon to-purple-light rounded p-2 flex items-center shadow"
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1 }}
 
         >
             <AiFillBook size={30} />

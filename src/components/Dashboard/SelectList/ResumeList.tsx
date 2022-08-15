@@ -4,7 +4,7 @@ import { resumeData, resumeProps } from '../../../data'
 const ResumeList = () => {
 
     return (
-        <motion.main className='flex flex-col gap-10'>
+        <motion.main className='flex flex-col gap-10 justify-center'>
             {
                 resumeData.map(item => {
                     return <ResumeItem key={item.id} {...item} />

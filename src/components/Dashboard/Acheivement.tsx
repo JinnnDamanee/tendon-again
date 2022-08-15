@@ -68,8 +68,8 @@ const AcheivementList = ({ id, title, thumbnail, isCompleted }: AcheivementListP
         ${isCompleted ? 'bg-gradient-to-bl from-purple-neon to-purple-light' : 'bg-gray-normal'}`}
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1 }}
 
         >
             <div className='rounded-full h-5 w-5 bg-white' />

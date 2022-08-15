@@ -1,7 +1,8 @@
 import ControlBtn from "./settingBtn";
-import { AiOutlineSearch, AiOutlineSetting, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineLogin, AiOutlineLogout, AiOutlineSearch, AiOutlineSetting, AiOutlineUser } from 'react-icons/ai'
 import { AnimatePresence, motion } from 'framer-motion'
-
+import { useRouter } from "next/router";
+import { useMemo } from "react";
 const Setting = () => {
     // const item = {
     //     hidden: {
@@ -10,17 +11,34 @@ const Setting = () => {
     //         transition: { duration: 0.1 }
     //     },
     // }
+    const router = useRouter();
+
     return (
-        <motion.main className="bg-gray-medium rounded-3xl pt-6 text-white p-2 flex flex-col gap-4"
+        <motion.main
+            className="bg-gray-medium rounded-3xl pt-6 text-white p-2 flex flex-col gap-4 h-full"
             key='setting'
             initial={{ opacity: 0, scale: 0, y: -100 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
         // exit={'hidden'}
         // variants={item}
         >
-            <ControlBtn Icon={AiOutlineSetting} />
-            <ControlBtn Icon={AiOutlineSearch} />
-            <ControlBtn Icon={AiOutlineUser} />
+            <ControlBtn Icon={AiOutlineUser} title='Profile' />
+            <ControlBtn Icon={AiOutlineSetting} title='Setting' />
+            {
+                router.pathname === '/login' || router.pathname === '/signup' ?
+                    <ControlBtn
+                        Icon={AiOutlineLogin}
+                        title='Login'
+                        onclick={() => router.push('/')}
+                    />
+                    :
+                    <ControlBtn
+                        Icon={AiOutlineLogout}
+                        title='Logout'
+                        onclick={() => router.push('/login')}
+                    />
+            }
+
         </motion.main>
 
     )

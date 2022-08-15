@@ -26,10 +26,9 @@ const DashBoard = () => {
     // }
 
     return (
-        <motion.div className="flex gap-x-20 items-center"
+        <motion.div className="flex gap-x-20"
         >
-
-            <motion.main className={`flex gap-4 justify-center p-6 bg-gray-normal rounded-3xl h-[500px]`}
+            <motion.main className={`flex gap-4 p-6 bg-gray-normal rounded-3xl min-h-[500px]`}
                 key={'dashboard'}
                 initial={{ opacity: 1, y: -100, scale: 0 }}
                 // animate={mode === modeType.main ? "main" : "search"}

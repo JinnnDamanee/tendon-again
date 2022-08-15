@@ -21,7 +21,7 @@ const ActivityBox = ({ isActive }: ActivityBox) => {
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.5 }}
-            whileTap={{ scale: 0.8 }}
+            whileTap={{ scale: 1 }}
         >
 
         </motion.div>
