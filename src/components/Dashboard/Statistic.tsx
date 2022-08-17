@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 const Statistic = () => {
     return (
         <main className="flex flex-col gap-2">
-            <h1 className="font-bold text-white text-2xl">Summary</h1>
+            <h1 className="font-bold text-slate-700 dark:text-white text-2xl">Summary</h1>
             {statData.map((item, idx) => {
                 return <StatList key={idx} {...item} />
             })}

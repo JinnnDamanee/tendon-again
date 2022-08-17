@@ -55,7 +55,7 @@ const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
 
     const [isOpen, setIsOpen] = useState(false)
     return (
-        <motion.button className="p-4 text-xl bg-gray-normal rounded-lg text-white border-purple-light border-2 shadow-purple-neon shadow-md"
+        <motion.button className="p-4 text-xl rounded-lg bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon shadow-lg"
             initial={{ opacity: 0, scale: 0 }}
             animate={{
                 opacity: 1, scale: 1,
@@ -80,9 +80,6 @@ const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
     );
 }
 const CourseDetail: React.FC<any> = ({ courseData }) => {
-
-
-
     return (
         <motion.main
             initial={{ opacity: 0, scale: 0 }}
@@ -100,8 +97,8 @@ const CourseDetail: React.FC<any> = ({ courseData }) => {
                                         <motion.button
                                             key={item.id}
                                             whileTap={{ scale: 0.9 }}
-                                            whileHover={{ scale: 1.1 }}
-                                            className='text-sm bg-gray-dark rounded-lg p-2'
+                                            whileHover={{ scale: 1.05 }}
+                                            className='text-sm bg-slate-600 dark:bg-gray-dark rounded-lg p-2'
                                             onClick={() => { alert(item.name) }}
                                         >{item.name}</motion.button>
 

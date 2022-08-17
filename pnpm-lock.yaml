@@ -9,7 +9,9 @@ specifiers:
   eslint: 8.18.0
   eslint-config-next: 12.2.3
   framer-motion: ^7.1.0
+  leader-line: ^1.0.7
   next: 12.2.3
+  next-themes: ^0.2.0
   postcss: ^8.4.16
   react: 18.2.0
   react-custom-scrollbars-2: ^4.5.0
@@ -22,7 +24,9 @@ specifiers:
 dependencies:
   daisyui: 2.24.0_25hquoklqeoqwmt7fwvvcyxm5e
   framer-motion: 7.1.0_biqbaboplfbrettd7655fr4n2y
+  leader-line: 1.0.7
   next: 12.2.3_biqbaboplfbrettd7655fr4n2y
+  next-themes: 0.2.0_53oqlnqnxhbetdy4ljlkkvmoby
   react: 18.2.0
   react-custom-scrollbars-2: 4.5.0_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
@@ -1519,6 +1523,10 @@ packages:
       language-subtag-registry: 0.3.22
     dev: true
 
+  /leader-line/1.0.7:
+    resolution: {integrity: sha512-PhJpQLV7XychSIuGPD0TEqR9PgRYBbrhReaOcmHFOVtTw4dWKfUMAtOb7UP7xTsoib6sFzq2giQeOUHy7LCuJQ==}
+    dev: false
+
   /levn/0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
@@ -1588,6 +1596,18 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /next-themes/0.2.0_53oqlnqnxhbetdy4ljlkkvmoby:
+    resolution: {integrity: sha512-myhpDL4vadBD9YDSHiewqvzorGzB03N84e+3LxCwHRlM/hiBOaW+UsKsQojQAzC7fdcJA0l2ppveXcYaVV+hxQ==}
+    peerDependencies:
+      next: '*'
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      next: 12.2.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /next/12.2.3_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-TA0tmSA6Dk6S6kfvCNbF7CWYW8468gZUxr/3/30z4KvAQbXnl2ASYZElVe7q/hBW/1F1ee0tSBlHa4/sn+ZIBw==}

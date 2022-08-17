@@ -11,7 +11,9 @@
   "dependencies": {
     "daisyui": "^2.24.0",
     "framer-motion": "^7.1.0",
+    "leader-line": "^1.0.7",
     "next": "12.2.3",
+    "next-themes": "^0.2.0",
     "react": "18.2.0",
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",

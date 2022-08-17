@@ -10,7 +10,7 @@ interface ControlBtnProps {
 const ControlBtn = ({ Icon, onclick, title }: ControlBtnProps) => {
     return (
         <Tooltip title={title}>
-            <motion.button className="bg-gray-normal rounded-full p-2"
+            <motion.button className="bg-slate-400 dark:bg-gray-normal rounded-full p-2"
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.1 }}
                 onClick={onclick}

@@ -1,10 +1,12 @@
 import Login from "../components/Login";
+import ThemeToggle from "../components/ThemeToggle";
 
 const LoginPage = () => {
     return (
         <main
-            className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-dark shadow-2xl overflow-hidden"
+            className="flex flex-col items-center justify-center min-h-screen p-4 bg-slate-300 dark:bg-gray-dark shadow-2xl overflow-hidden"
         >
+            <ThemeToggle />
             <Login />
         </main>
     )

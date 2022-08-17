@@ -15,7 +15,7 @@ const ResumeList = () => {
 }
 const ResumeItem = ({ id, courseName }: resumeProps) => {
     return (
-        <motion.button className="p-2 bg-gray-normal rounded-lg text-white border-purple-light border-2 shadow-purple-neon shadow-md"
+        <motion.button className="p-2 rounded-lg bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon shadow-lg"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}

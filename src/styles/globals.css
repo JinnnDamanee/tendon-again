@@ -6,8 +6,15 @@
   html {
     font-family: "Inter", sans-serif;
   }
+
   ::selection {
     background: #f5f5f5;
     color: #000;
+  }
+}
+
+@layer components {
+  .input {
+    @apply bg-slate-300 dark:bg-gray-normal;
   }
 }

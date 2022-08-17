@@ -14,7 +14,7 @@ const Acheivement = () => {
     // }
 
     return (
-        <motion.main className='flex flex-col gap-2 p-4 text-white bg-gray-light rounded-lg w-[300px] '
+        <motion.main className='flex flex-col gap-2 p-4 bg-slate-200 text-slate-700 dark:text-white dark:bg-gray-light rounded-lg w-[300px]'
             key={'acheivement'}
             initial={{ opacity: 0, y: -100, scale: 0 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -65,7 +65,7 @@ const AcheivementList = ({ id, title, thumbnail, isCompleted }: AcheivementListP
     return (
         <motion.main
             className={`text-white rounded-xl p-2 flex items-center gap-4 shadow
-        ${isCompleted ? 'bg-gradient-to-bl from-purple-neon to-purple-light' : 'bg-gray-normal'}`}
+        ${isCompleted ? 'bg-gradient-to-bl from-purple-neon to-purple-light' : 'bg-slate-500 dark:bg-gray-normal'}`}
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.05 }}

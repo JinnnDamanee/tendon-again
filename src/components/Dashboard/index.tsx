@@ -28,7 +28,7 @@ const DashBoard = () => {
     return (
         <motion.div className="flex gap-x-20"
         >
-            <motion.main className={`flex gap-4 p-6 bg-gray-normal rounded-3xl min-h-[500px]`}
+            <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px]`}
                 key={'dashboard'}
                 initial={{ opacity: 1, y: -100, scale: 0 }}
                 // animate={mode === modeType.main ? "main" : "search"}
@@ -82,7 +82,8 @@ interface NavigateProps {
 const NavigateButton = ({ Icon, direction, onClick }: NavigateProps) => {
     return (
         <main className="w-0 h-0">
-            <motion.button className={`bg-white h-fit w-fit rounded-full relative flex justify-center items-center p-2 top-56 ${direction === 'right' ? '-right-0' : '-left-12'}`}
+            <motion.button className={`bg-slate-400 text-white dark:bg-gray-light shadow-xl h-fit w-fit rounded-full relative flex justify-center items-center p-2 top-56 
+            ${direction === 'right' ? '-right-0' : '-left-12'}`}
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.1 }}
                 initial={{ x: direction === 'right' ? '-100%' : '100%' }}

@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -10,9 +12,12 @@ module.exports = {
       "gray-medium": "#2D333B",
       "purple-light": "#AE51FF",
       "purple-neon": "#961EFF",
+      black: "#000",
+      slate: colors.slate,
     },
     extend: {},
   },
+  darkMode: "class",
 
   plugins: [require("daisyui")],
 
