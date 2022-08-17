@@ -27,6 +27,7 @@ const DashBoard = () => {
 
     return (
         <motion.div className="flex gap-x-20"
+
         >
             <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px]`}
                 key={'dashboard'}
@@ -38,6 +39,7 @@ const DashBoard = () => {
                 }}
                 exit={{ opacity: 1, y: -100, scale: 0 }}
                 drag={mode === modeType.main ? false : true}
+                id='dashboard'
                 ref={dashboardRef}
                 dragConstraints={dashboardRef}
             >

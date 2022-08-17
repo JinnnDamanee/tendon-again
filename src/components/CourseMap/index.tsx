@@ -1,6 +1,9 @@
 import CourseNode, { CourseNodeProps } from "./CourseNode";
 import { motion } from 'framer-motion'
 import BreadCrumbNav from "./BreadCrumbNav";
+import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
+import { useTheme } from "next-themes";
+import React, { useEffect, useState } from "react"
 interface CourseMapProps {
     CourseId: number
 }
@@ -8,6 +11,14 @@ interface CourseMapProps {
 
 // Entire View of the Course Map
 const CourseMap = ({ CourseId }: CourseMapProps) => {
+    const { theme } = useTheme();
+    // const [onClient, setOnClient] = useState(false);
+
+    // useEffect(() => {
+    //     setOnClient(true)
+    // }, [])
+
+    // if (!onClient) return null;
     return (
         <>
             <BreadCrumbNav />
@@ -18,19 +29,25 @@ const CourseMap = ({ CourseId }: CourseMapProps) => {
                 exit={{ scale: 0, y: -100 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
             >
+                {/* Start Node */}
                 <CourseNode
                     key={CourseId}
                     CourseId={CourseId}
                     CourseName="Introduction to Programming"
+
                 />
-                <div className="grid gap-10">
-                    {MockRelateCourse.map((item) => {
+                <div className="grid gap-10 ml-20">
+                    {MockRelateCourse.map((item, index) => {
                         return (
-                            <CourseNode
-                                key={item.CourseId}
-                                CourseId={item.CourseId}
-                                CourseName={item.CourseName}
-                            />
+                            // End Node
+                            <Xwrapper key={index}>
+                                <CourseNode
+                                    key={item.CourseId}
+                                    CourseId={item.CourseId}
+                                    CourseName={item.CourseName}
+                                />
+                                <Xarrow start={CourseId.toString()} end={item.CourseId.toString()} color={theme === 'light' ? '#475569' : '#961EFF'} />
+                            </Xwrapper>
                         )
                     })}
                 </div>

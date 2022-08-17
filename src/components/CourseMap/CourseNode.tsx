@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+
 
 export interface CourseNodeProps {
     CourseId: number
@@ -55,7 +56,10 @@ const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
 
     const [isOpen, setIsOpen] = useState(false)
     return (
-        <motion.button className="p-4 text-xl rounded-lg bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon shadow-lg"
+        <motion.button
+            className="p-4 text-xl rounded-lg shadow-lg
+        bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon "
+            id={CourseId.toString()}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
                 opacity: 1, scale: 1,
@@ -66,7 +70,6 @@ const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
             dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.1 }}
-            onClick={() => setIsOpen(!isOpen)}
         >
             <h1>{CourseName}</h1>
             <AnimatePresence

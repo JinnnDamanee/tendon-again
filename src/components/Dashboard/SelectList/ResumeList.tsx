@@ -1,13 +1,20 @@
 import { motion } from 'framer-motion'
+import { useTheme } from 'next-themes'
 import Router from 'next/router'
+import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
 import { resumeData, resumeProps } from '../../../data'
 const ResumeList = () => {
-
+    const { theme } = useTheme();
     return (
         <motion.main className='flex flex-col gap-10 justify-center'>
             {
-                resumeData.map(item => {
-                    return <ResumeItem key={item.id} {...item} />
+                resumeData.map((item, index) => {
+                    return (
+                        <Xwrapper key={index}>
+                            <ResumeItem key={item.id} {...item} />
+                            <Xarrow start={'dashboard'} end={item.id.toString()} color={theme === 'light' ? '#475569' : '#961EFF'} />
+                        </Xwrapper>
+                    )
                 })
             }
         </motion.main>
@@ -25,6 +32,7 @@ const ResumeItem = ({ id, courseName }: resumeProps) => {
             whileHover={{ scale: 1.1 }}
             onClick={() => Router.push(`/courseMap/${id}`)}
             transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+            id={id.toString()}
         >
             {courseName}
         </motion.button>
