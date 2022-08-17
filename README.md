@@ -2,6 +2,11 @@
 
 LMS Extension/Addon/Stanalone? on MycourseVille (MCV)
 
+## Features
+
+- [X] Basic Animation between pages
+- [X] Light/Dark
+
 ## Frontend Stack
 
 - Next.js
