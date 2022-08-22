@@ -1,5 +1,8 @@
-import Signup from "../components/signup";
+// import Signup from "../components/signup";
 import ThemeToggle from "../components/ThemeToggle";
+import dynamic from "next/dynamic";
+
+const Signup = dynamic(() => import('../components/signup'));
 
 const SignupPage = () => {
     return (

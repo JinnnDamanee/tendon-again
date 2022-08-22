@@ -1,5 +1,8 @@
-import Login from "../components/Login";
+// import Login from "../components/Login";
 import ThemeToggle from "../components/ThemeToggle";
+import dynamic from "next/dynamic";
+
+const Login = dynamic(() => import('../components/Login'), { suspense: true });
 
 const LoginPage = () => {
     return (

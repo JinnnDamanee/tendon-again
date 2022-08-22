@@ -9,24 +9,20 @@ interface CourseMapProps {
 }
 
 
-// Entire View of the Course Map
+// Entire View of the Course Map (Container)
 const CourseMap = ({ CourseId }: CourseMapProps) => {
     const { theme } = useTheme();
-    // const [onClient, setOnClient] = useState(false);
+    const [onClient, setOnClient] = useState(false);
 
-    // useEffect(() => {
-    //     setOnClient(true)
-    // }, [])
+    useEffect(() => {
+        setOnClient(true)
+    }, [])
 
-    // if (!onClient) return null;
+    if (!onClient) return null;
     return (
         <>
-            <BreadCrumbNav />
             <motion.main
                 className="flex items-center gap-10"
-                initial={{ scale: 0, y: -100 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0, y: -100 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
             >
                 {/* Start Node */}
@@ -46,7 +42,11 @@ const CourseMap = ({ CourseId }: CourseMapProps) => {
                                     CourseId={item.CourseId}
                                     CourseName={item.CourseName}
                                 />
-                                <Xarrow start={CourseId.toString()} end={item.CourseId.toString()} color={theme === 'light' ? '#475569' : '#961EFF'} />
+                                <Xarrow
+                                    start={CourseId.toString()}
+                                    end={item.CourseId.toString()}
+                                    color={theme === 'light' ? '#475569' : '#961EFF'}
+                                />
                             </Xwrapper>
                         )
                     })}

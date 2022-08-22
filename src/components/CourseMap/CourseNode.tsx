@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useXarrow } from 'react-xarrows'
 
 
 export interface CourseNodeProps {
@@ -12,49 +13,50 @@ const showDetailType = [
     "lectures",
     "quizzes",
 ]
+const courseData = {
+    assignments: [
+        {
+            id: 1,
+            name: 'Assignment 1'
+        },
+        {
+            id: 2,
+            name: 'Assignment 2'
+        },
+    ],
+    lectures: [
+        {
+            id: 1,
+            name: 'Lecture 1'
+        },
+        {
+            id: 2,
+            name: 'Lecture 2'
+        },
+    ],
+    quizzes: [
+        {
+            id: 1,
+            name: 'Quiz 1'
+        },
+    ],
+    prerequisites: [
+        {
+            id: 1,
+            name: 'Prerequisite 1'
+        },
+    ]
+}
 
 // Dumb component that renders a course node
 const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
     // use courseId to get the course data from the server
     // but we will mock it for now
-    const courseData = {
-        assignments: [
-            {
-                id: 1,
-                name: 'Assignment 1'
-            },
-            {
-                id: 2,
-                name: 'Assignment 2'
-            },
-        ],
-        lectures: [
-            {
-                id: 1,
-                name: 'Lecture 1'
-            },
-            {
-                id: 2,
-                name: 'Lecture 2'
-            },
-        ],
-        quizzes: [
-            {
-                id: 1,
-                name: 'Quiz 1'
-            },
-        ],
-        prerequisites: [
-            {
-                id: 1,
-                name: 'Prerequisite 1'
-            },
-        ]
 
-    }
     // const heigthRef = useRef<HTMLDivElement>(null)
-
+    const updateArrow = useXarrow();
     const [isOpen, setIsOpen] = useState(false)
+
     return (
         <motion.button
             className="p-4 text-xl rounded-lg shadow-lg
@@ -66,10 +68,21 @@ const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
                 // height: isOpen ? 'auto' : 'auto',
             }}
             exit={{ opacity: 0, scale: 0 }}
+            transition={{ duration: 0.2, type: 'spring', stiffness: 100 }}
             drag
             dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.1 }}
+
+            // onDrag={() => {
+            //     setInterval(updateArrow, 100)
+            // }}
+            onClick={() => {
+                setIsOpen(!isOpen);
+            }}
+            onUpdate={() => {
+                setInterval(updateArrow, 100)
+            }}
         >
             <h1>{CourseName}</h1>
             <AnimatePresence

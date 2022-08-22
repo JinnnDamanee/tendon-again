@@ -12,7 +12,7 @@ const BreadCrumbNav = () => {
             drag
             dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
             transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-            className="flex justify-center gap-4 items-center top-0 left-0 absolute p-2 m-10 rounded-full bg-gradient-to-r from-purple-light to-purple-neon text-white text-xl font-bold"
+            className="flex justify-center gap-4 items-center top-0 left-0 fixed p-2 m-10 rounded-full bg-gradient-to-r from-purple-light to-purple-neon text-white text-xl font-bold"
         >
             <div className='rounded-full overflow-hidden flex justify-center items-center'>
                 <Image src={'https://raw.githubusercontent.com/JinDamanee2544/tendon-again/main/src/image/S__38969413.jpg'} alt='user' height={50} width={50} />
