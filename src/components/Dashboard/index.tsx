@@ -20,11 +20,6 @@ const DashBoard = () => {
     const dashboardRef = useRef(null)
     const [mode, setMode] = useState<modeType>(modeType.main);
 
-    // const container = {
-    //     main: { opacaity: 1, scale: 1, y: 0 },
-    //     search: { opacity: 1, scale: 1, y: 0, transition: { when: "afterChildren" } },
-    // }
-
     return (
         <motion.div className="flex gap-x-20"
         >
@@ -38,10 +33,10 @@ const DashBoard = () => {
                 }}
                 exit={{ opacity: 1, y: -100, scale: 0 }}
                 drag={mode === modeType.main ? false : true}
+                id='dashboard'
                 ref={dashboardRef}
                 dragConstraints={dashboardRef}
             >
-
 
                 <NavigateButton
                     direction="left"
