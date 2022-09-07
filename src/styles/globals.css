@@ -17,4 +17,11 @@
   .input {
     @apply bg-slate-300 dark:bg-gray-normal;
   }
+  .main-bg {
+    @apply flex flex-col items-center justify-center min-h-screen p-4 bg-slate-300 dark:bg-gray-dark shadow-2xl overflow-hidden;
+  }
+  .course-node {
+    @apply p-4 text-xl rounded-lg shadow-lg w-max h-fit
+            bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon mx-10;
+  }
 }

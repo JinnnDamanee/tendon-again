@@ -1,9 +1,9 @@
 import CourseNode, { CourseNodeProps } from "./CourseNode";
 import { motion } from 'framer-motion'
-import BreadCrumbNav from "./BreadCrumbNav";
 import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
 import { useTheme } from "next-themes";
 import React, { memo, useEffect, useState } from "react"
+import { useCourse } from "./CourseManager";
 interface CourseMapProps {
     CourseId: number
 }
@@ -13,16 +13,54 @@ interface CourseMapProps {
 const CourseMap = ({ CourseId }: CourseMapProps) => {
     const { theme } = useTheme();
     const [childReady, setChildReady] = useState(false);
-
+    const [onClient, setOnClient] = useState(false);
     const MockRelateCourse: any[] = [
         {
             CourseId: 2,
-            CourseName: "Web Development",
+            CourseName: "First",
+            next: [
+                {
+                    CourseId: 3,
+                    CourseName: "Framework",
+                    next: [
+                        {
+                            CourseId: 4,
+                            CourseName: "React",
+                        },
+                        {
+                            CourseId: 5,
+                            CourseName: "Vue",
+                        },
+                    ]
+                },
+                {
+                    CourseId: 7,
+                    CourseName: "Language",
+                    next: [
+                        {
+                            CourseId: 8,
+                            CourseName: "JavaScript",
+                        },
+                        {
+                            CourseId: 9,
+                            CourseName: "TypeScript",
+                        },
+                    ]
+                }
+            ]
         },
         {
-            CourseId: 3,
-            CourseName: "Ruby on Rails",
+            CourseId: 6,
+            CourseName: "Second",
+            next: [
+                {
+                    CourseId: 7,
+                    CourseName: "Language",
+                }
+            ]
         },
+
+        /*
         {
             CourseId: 4,
             CourseName: "JavaScript",
@@ -34,8 +72,10 @@ const CourseMap = ({ CourseId }: CourseMapProps) => {
         {
             CourseId: 6,
             CourseName: "Node.js",
-        }
+        }*/
     ]
+    useEffect(() => setOnClient(true), [])
+    if (!onClient) return null;
 
     return (
         <>
@@ -50,16 +90,17 @@ const CourseMap = ({ CourseId }: CourseMapProps) => {
                     CourseName="Introduction to Programming"
                     setChildReady={setChildReady}
                 />
-                <div className="flex flex-col gap-10 ml-20">
+                <div className="flex flex-col gap-10">
                     <Xwrapper>
                         {MockRelateCourse.map((item, index) => {
                             return (
                                 // End Node
-                                <div key={index}>
+                                <div key={index}
+                                    className="flex gap-10 items-center"
+                                >
                                     <CourseNode
                                         key={item.CourseId}
-                                        CourseId={item.CourseId}
-                                        CourseName={item.CourseName}
+                                        {...item}
                                         setChildReady={setChildReady}
                                     />
                                     {
@@ -81,7 +122,6 @@ const CourseMap = ({ CourseId }: CourseMapProps) => {
                         })}
                     </Xwrapper>
                 </div>
-
             </motion.main>
         </>
     )

@@ -13,23 +13,26 @@ import { modeType, NavigateProps } from "../../../Types";
 const DashBoard = () => {
     const dashboardRef = useRef(null)
     const [mode, setMode] = useState<modeType>(modeType.main);
-    const [width, setWidth] = useState(0)
+    //const [width, setWidth] = useState(0)
 
     const navigateMode = () => {
-        const currentWidth = dashboardRef.current.clientWidth
+        //const currentWidth = dashboardRef.current.clientWidth
         if (mode === modeType.main) {
             setMode(modeType.resume)
+            /*
             if (currentWidth !== 0) {
                 setWidth(currentWidth)
             }
             console.log(currentWidth);
-
+            */
         } else {
             setMode(modeType.main)
+            /*
             if (currentWidth !== 0) {
                 setWidth(currentWidth)
             }
             console.log(currentWidth);
+            */
         }
     }
 
@@ -37,7 +40,7 @@ const DashBoard = () => {
         <motion.div
             className="flex gap-x-20"
         >
-            <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px] max-w-fit`}
+            <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px]`}
                 key={'dashboard'}
                 initial={{ opacity: 1, y: -100, scale: 0 }}
                 animate={{

@@ -1,62 +1,29 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { useXarrow } from 'react-xarrows'
-
+import { useEffect, useRef, useState } from 'react'
+import { useXarrow, Xwrapper } from 'react-xarrows'
+import Xarrow from 'react-xarrows'
+import { useTheme } from 'next-themes'
+import { useCourse } from './CourseManager'
 
 export interface CourseNodeProps {
     CourseId: number
     CourseName: string
+    next?: CourseNodeProps[]
     setChildReady: (value: boolean) => void
 }
 
-const showDetailType = [
-    "assignments",
-    "lectures",
-    "quizzes",
-]
-const courseData = {
-    assignments: [
-        {
-            id: 1,
-            name: 'Assignment 1'
-        },
-        {
-            id: 2,
-            name: 'Assignment 2'
-        },
-    ],
-    lectures: [
-        {
-            id: 1,
-            name: 'Lecture 1'
-        },
-        {
-            id: 2,
-            name: 'Lecture 2'
-        },
-    ],
-    quizzes: [
-        {
-            id: 1,
-            name: 'Quiz 1'
-        },
-    ],
-    prerequisites: [
-        {
-            id: 1,
-            name: 'Prerequisite 1'
-        },
-    ]
-}
 
 // Dumb component that renders a course node
-const CourseNode = ({ CourseId, CourseName, setChildReady }: CourseNodeProps) => {
+const CourseNode = ({ CourseId, CourseName, next, setChildReady }: CourseNodeProps) => {
     // use courseId to get the course data from the server
     // but we will mock it for now
-
-    // const heigthRef = useRef<HTMLDivElement>(null)
+    const { theme } = useTheme();
     const updateArrow = useXarrow();
-    const [isOpen, setIsOpen] = useState(false)
+    const [subChildReady, setSubChildReady] = useState(false);
+    const { addCourseToMap, isCourseInMap } = useCourse();
+
+    const nodeRef = useRef(null)
+    // const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         setTimeout(() => setChildReady(true), 200);
@@ -65,77 +32,77 @@ const CourseNode = ({ CourseId, CourseName, setChildReady }: CourseNodeProps) =>
 
 
     return (
-        <motion.button
-            className="p-4 text-xl rounded-lg shadow-lg
-        bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon "
-            id={CourseId.toString()}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-                opacity: 1, scale: 1,
-                // height: isOpen ? 'auto' : 'auto',
-            }}
-            exit={{ opacity: 0, scale: 0 }}
-            transition={{ duration: 0.2, type: 'spring', stiffness: 100 }}
-            drag
-            dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.1 }}
+        <>
+            <motion.button
+                className="course-node"
+                id={CourseId.toString()}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{
+                    opacity: 1, scale: 1,
+                    // height: isOpen ? 'auto' : 'auto',
+                }}
+                ref={nodeRef}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 0.2, type: 'spring', stiffness: 100 }}
+                //drag
+                dragConstraints={nodeRef}
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.1 }}
 
-            // onDrag={() => {
-            //     setInterval(updateArrow, 200)
-            // }}
-            // onClick={() => {
-            //     setIsOpen(!isOpen);
-            // }}
-            onUpdate={() => {
-                setInterval(updateArrow, 100)
-            }}
-        >
-            <h1>{CourseName}</h1>
-            <AnimatePresence
-                exitBeforeEnter
+                onUpdate={() => {
+                    setInterval(updateArrow, 200)
+                }}
             >
+                <h1>{CourseName}</h1>
+
+                {/* <AnimatePresence
+                exitBeforeEnter
+                >
                 {
                     isOpen && <CourseDetail courseData={courseData} />
                 }
-            </AnimatePresence>
-        </motion.button>
-    );
-}
-const CourseDetail: React.FC<any> = ({ courseData }) => {
-    return (
-        <motion.main
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            className="grid gap-2 p-2"
-        >
-            <div className='flex flex-col gap-4'>
-                {
-                    showDetailType.map((type) => {
-                        return (
-                            courseData[`${type}`]?.map((item: any) => {
+            </AnimatePresence> */}
+
+            </motion.button>
+            <div className="flex flex-col gap-10">
+                <Xwrapper>
+                    {
+                        next === undefined ? null :
+                            next.map(item => {
+
+                                // if (isCourseInMap(item)) {
+                                //     addCourseToMap(item);
                                 return (
-                                    <>
-                                        <motion.button
-                                            key={item.id}
-                                            whileTap={{ scale: 0.9 }}
-                                            whileHover={{ scale: 1.05 }}
-                                            className='text-sm bg-slate-600 dark:bg-gray-dark rounded-lg p-2'
-                                            onClick={() => { alert(item.name) }}
+                                    (
+                                        <div key={item.CourseId}
+                                            className="flex items-center"
                                         >
-                                            {item.name}
-                                        </motion.button>
-
-                                    </>
+                                            <CourseNode {...item} setChildReady={setSubChildReady} />
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                            >
+                                                {subChildReady &&
+                                                    <Xarrow
+                                                        start={CourseId.toString()}
+                                                        end={item.CourseId.toString()}
+                                                        color={theme === 'light' ? '#475569' : '#961EFF'}
+                                                    />
+                                                }
+                                            </motion.div>
+                                        </div>
+                                    )
                                 )
+                                // }
+
                             })
-                        )
-                    })
-                }
+                    }
+                </Xwrapper>
             </div>
-        </motion.main>
+        </>
     );
 }
+/*
 
+*/
 export default CourseNode;
