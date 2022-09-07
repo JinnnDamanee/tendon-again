@@ -1,11 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useXarrow } from 'react-xarrows'
 
 
 export interface CourseNodeProps {
     CourseId: number
     CourseName: string
+    setChildReady: (value: boolean) => void
 }
 
 const showDetailType = [
@@ -49,13 +50,19 @@ const courseData = {
 }
 
 // Dumb component that renders a course node
-const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
+const CourseNode = ({ CourseId, CourseName, setChildReady }: CourseNodeProps) => {
     // use courseId to get the course data from the server
     // but we will mock it for now
 
     // const heigthRef = useRef<HTMLDivElement>(null)
     const updateArrow = useXarrow();
     const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => setChildReady(true), 200);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     return (
         <motion.button
@@ -75,11 +82,11 @@ const CourseNode = ({ CourseId, CourseName }: CourseNodeProps) => {
             whileHover={{ scale: 1.1 }}
 
             // onDrag={() => {
-            //     setInterval(updateArrow, 100)
+            //     setInterval(updateArrow, 200)
             // }}
-            onClick={() => {
-                setIsOpen(!isOpen);
-            }}
+            // onClick={() => {
+            //     setIsOpen(!isOpen);
+            // }}
             onUpdate={() => {
                 setInterval(updateArrow, 100)
             }}
@@ -116,7 +123,9 @@ const CourseDetail: React.FC<any> = ({ courseData }) => {
                                             whileHover={{ scale: 1.05 }}
                                             className='text-sm bg-slate-600 dark:bg-gray-dark rounded-lg p-2'
                                             onClick={() => { alert(item.name) }}
-                                        >{item.name}</motion.button>
+                                        >
+                                            {item.name}
+                                        </motion.button>
 
                                     </>
                                 )

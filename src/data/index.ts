@@ -200,25 +200,12 @@ const statData: statDataProps[] = [
 export interface resumeProps {
   id: number,
   courseName: string,
+  setIsReady: (value: boolean) => void
 }
-const resumeData: resumeProps[] = [
-  {
-    id: 1,
-    courseName: "Web Development",
-  },
-  {
-    id: 2,
-    courseName: "Web Development",
-  },
-  {
-    id: 3,
-    courseName: "Web Development",
-  },
-]
+
 
 export {
   AcheivementData,
   activityData,
   statData,
-  resumeData,
 }

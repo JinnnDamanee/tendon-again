@@ -5,31 +5,45 @@ import Statistic from "./Statistic";
 import { AnimatePresence, motion } from "framer-motion";
 import Setting from "./Setting";
 import { IoCaretForwardOutline } from 'react-icons/io5'
-import { IconType } from "react-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import ResumeList from "./SelectList/ResumeList";
-
-enum modeType {
-    'main',
-    'search',
-    'resume'
-}
+import { modeType, NavigateProps } from "../../../Types";
 
 const DashBoard = () => {
     const dashboardRef = useRef(null)
     const [mode, setMode] = useState<modeType>(modeType.main);
+    const [width, setWidth] = useState(0)
+
+    const navigateMode = () => {
+        const currentWidth = dashboardRef.current.clientWidth
+        if (mode === modeType.main) {
+            setMode(modeType.resume)
+            if (currentWidth !== 0) {
+                setWidth(currentWidth)
+            }
+            console.log(currentWidth);
+
+        } else {
+            setMode(modeType.main)
+            if (currentWidth !== 0) {
+                setWidth(currentWidth)
+            }
+            console.log(currentWidth);
+        }
+    }
 
     return (
-        <motion.div className="flex gap-x-20"
+        <motion.div
+            className="flex gap-x-20"
         >
-            <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px]`}
+            <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px] max-w-fit`}
                 key={'dashboard'}
                 initial={{ opacity: 1, y: -100, scale: 0 }}
-                // animate={mode === modeType.main ? "main" : "search"}
                 animate={{
                     opacity: 1, y: 0, scale: 1,
-                    width: mode === modeType.main ? "700px" : "350px",
+                    // width: width === 0 ? '100%' : width
+                    width: mode === modeType.main ? '728px' : '344px'
                 }}
                 exit={{ opacity: 1, y: -100, scale: 0 }}
                 drag={mode === modeType.main ? false : true}
@@ -41,7 +55,7 @@ const DashBoard = () => {
                 <NavigateButton
                     direction="left"
                     Icon={AiOutlineSearch}
-                    onClick={() => { mode === modeType.main ? setMode(modeType.search) : setMode(modeType.main) }}
+                    onClick={() => navigateMode()}
                 />
 
                 {<div className="mt-5">
@@ -60,7 +74,7 @@ const DashBoard = () => {
                 <NavigateButton
                     direction="right"
                     Icon={IoCaretForwardOutline}
-                    onClick={() => { mode === modeType.main ? setMode(modeType.resume) : setMode(modeType.main) }}
+                    onClick={() => navigateMode()}
                 />
             </motion.main >
             {mode === modeType.resume && <ResumeList />}
@@ -68,11 +82,7 @@ const DashBoard = () => {
         </motion.div>
     )
 }
-interface NavigateProps {
-    Icon: IconType,
-    direction: string,
-    onClick: () => void,
-}
+
 
 const NavigateButton = ({ Icon, direction, onClick }: NavigateProps) => {
     return (

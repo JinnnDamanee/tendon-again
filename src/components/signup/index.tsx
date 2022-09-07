@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { NextPageContext } from 'next';
 import Setting from '../Dashboard/Setting';
 const SignupBox = () => {
     return (
@@ -59,10 +58,6 @@ const SignupBox = () => {
         </motion.main>
     )
 }
-export async function getStaticPaths() {
-    return {
-        paths: [],
-    }
-}
+
 
 export default SignupBox;

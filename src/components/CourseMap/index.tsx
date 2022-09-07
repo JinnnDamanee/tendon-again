@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import BreadCrumbNav from "./BreadCrumbNav";
 import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
 import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react"
+import React, { memo, useEffect, useState } from "react"
 interface CourseMapProps {
     CourseId: number
 }
@@ -12,13 +12,31 @@ interface CourseMapProps {
 // Entire View of the Course Map (Container)
 const CourseMap = ({ CourseId }: CourseMapProps) => {
     const { theme } = useTheme();
-    const [onClient, setOnClient] = useState(false);
+    const [childReady, setChildReady] = useState(false);
 
-    useEffect(() => {
-        setOnClient(true)
-    }, [])
+    const MockRelateCourse: any[] = [
+        {
+            CourseId: 2,
+            CourseName: "Web Development",
+        },
+        {
+            CourseId: 3,
+            CourseName: "Ruby on Rails",
+        },
+        {
+            CourseId: 4,
+            CourseName: "JavaScript",
+        },
+        {
+            CourseId: 5,
+            CourseName: "React",
+        },
+        {
+            CourseId: 6,
+            CourseName: "Node.js",
+        }
+    ]
 
-    if (!onClient) return null;
     return (
         <>
             <motion.main
@@ -30,54 +48,45 @@ const CourseMap = ({ CourseId }: CourseMapProps) => {
                     key={CourseId}
                     CourseId={CourseId}
                     CourseName="Introduction to Programming"
-
+                    setChildReady={setChildReady}
                 />
-                <div className="grid gap-10 ml-20">
-                    {MockRelateCourse.map((item, index) => {
-                        return (
-                            // End Node
-                            <Xwrapper key={index}>
-                                <CourseNode
-                                    key={item.CourseId}
-                                    CourseId={item.CourseId}
-                                    CourseName={item.CourseName}
-                                />
-                                <Xarrow
-                                    start={CourseId.toString()}
-                                    end={item.CourseId.toString()}
-                                    color={theme === 'light' ? '#475569' : '#961EFF'}
-                                />
-                            </Xwrapper>
-                        )
-                    })}
+                <div className="flex flex-col gap-10 ml-20">
+                    <Xwrapper>
+                        {MockRelateCourse.map((item, index) => {
+                            return (
+                                // End Node
+                                <div key={index}>
+                                    <CourseNode
+                                        key={item.CourseId}
+                                        CourseId={item.CourseId}
+                                        CourseName={item.CourseName}
+                                        setChildReady={setChildReady}
+                                    />
+                                    {
+                                        childReady && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                            >
+                                                <Xarrow
+                                                    start={CourseId.toString()}
+                                                    end={item.CourseId.toString()}
+                                                    color={theme === 'light' ? '#475569' : '#961EFF'}
+                                                />
+                                            </motion.div>
+                                        )
+                                    }
+                                </div>
+                            )
+                        })}
+                    </Xwrapper>
                 </div>
 
             </motion.main>
         </>
     )
 }
-const MockRelateCourse: CourseNodeProps[] = [
-    {
-        CourseId: 2,
-        CourseName: "Web Development"
-    },
-    {
-        CourseId: 3,
-        CourseName: "Ruby on Rails"
-    },
-    {
-        CourseId: 4,
-        CourseName: "JavaScript"
-    },
-    {
-        CourseId: 5,
-        CourseName: "React"
-    },
-    {
-        CourseId: 6,
-        CourseName: "Node.js"
-    }
-]
+
 
 
 export default CourseMap;

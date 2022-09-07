@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 const DashBoard = dynamic(() => import("../components/Dashboard"), { suspense: true });
+// import DashBoard from "../components/Dashboard";
 
 const DashBoardPage: NextPage = () => {
   return (

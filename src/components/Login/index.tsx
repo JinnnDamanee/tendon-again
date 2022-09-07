@@ -54,10 +54,4 @@ const Login = () => {
         </motion.main>
     )
 }
-export async function getStaticPaths() {
-    return {
-        paths: [],
-    }
-}
-
 export default Login
