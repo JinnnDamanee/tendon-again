@@ -11,11 +11,15 @@ LMS Extension/Addon/Stanalone? on MycourseVille (MCV)
 
 - Next.js
 - Tailwindcss
-- Framer Motion (Handle Animation)
+- Framer Motion (Animation Handler)
 
-## Backend Stack
+## UI Design
 
-- Waited for Yod's Repo -> LINK
+I have designed its UI in previous year with Figma : [Figma](https://www.figma.com/file/vK6ayZG951BVAj2nzYaXqo/TENDON-PROJECT?node-id=0%3A1) 
+
+## Backend Repo
+
+Not my part, But you can see it in : [Tendon's Backend](https://github.com/TendonT52/tendonAgain)
 
 ## CodeSandBox 
 
