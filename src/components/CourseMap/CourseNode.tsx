@@ -4,17 +4,13 @@ import { useXarrow, Xwrapper } from 'react-xarrows'
 import Xarrow from 'react-xarrows'
 import { useTheme } from 'next-themes'
 import { useCourse } from './CourseManager'
-
-export interface CourseNodeProps {
-    CourseId: number
-    CourseName: string
-    next?: CourseNodeProps[]
-    setChildReady: (value: boolean) => void
-}
+import { CourseNodeProps, RenderCourseProps } from '../../Types'
+import { mapToRenderProps } from './useMapToRender'
+import ArrowBox from './ArrowBox'
 
 
 // Dumb component that renders a course node
-const CourseNode = ({ CourseId, CourseName, next, setChildReady }: CourseNodeProps) => {
+const CourseNode = ({ courseId, courseName, next, setChildReady }: RenderCourseProps) => {
     // use courseId to get the course data from the server
     // but we will mock it for now
     const { theme } = useTheme();
@@ -30,12 +26,11 @@ const CourseNode = ({ CourseId, CourseName, next, setChildReady }: CourseNodePro
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
     return (
         <>
             <motion.button
                 className="course-node"
-                id={CourseId.toString()}
+                id={courseId.toString()}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{
                     opacity: 1, scale: 1,
@@ -53,7 +48,7 @@ const CourseNode = ({ CourseId, CourseName, next, setChildReady }: CourseNodePro
                     setInterval(updateArrow, 200)
                 }}
             >
-                <h1>{CourseName}</h1>
+                <h1>{courseName}</h1>
 
                 {/* <AnimatePresence
                 exitBeforeEnter
@@ -69,32 +64,33 @@ const CourseNode = ({ CourseId, CourseName, next, setChildReady }: CourseNodePro
                     {
                         next === undefined ? null :
                             next.map(item => {
-
-                                // if (isCourseInMap(item)) {
-                                //     addCourseToMap(item);
+                                const mappedNode = mapToRenderProps({
+                                    courseId: item.courseId,
+                                    courseName: item.courseName,
+                                    status: item.status,
+                                    next: item.next,
+                                }, setSubChildReady)
                                 return (
                                     (
-                                        <div key={item.CourseId}
+                                        <div key={item.courseId}
                                             className="flex items-center"
                                         >
-                                            <CourseNode {...item} setChildReady={setSubChildReady} />
-                                            <motion.div
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                            >
+                                            <CourseNode
+                                                key={mappedNode.courseId}
+                                                {...mappedNode}
+                                            />
+                                            <ArrowBox>
                                                 {subChildReady &&
                                                     <Xarrow
-                                                        start={CourseId.toString()}
-                                                        end={item.CourseId.toString()}
+                                                        start={courseId.toString()}
+                                                        end={item.courseId.toString()}
                                                         color={theme === 'light' ? '#475569' : '#961EFF'}
                                                     />
                                                 }
-                                            </motion.div>
+                                            </ArrowBox>
                                         </div>
                                     )
                                 )
-                                // }
-
                             })
                     }
                 </Xwrapper>

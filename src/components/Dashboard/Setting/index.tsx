@@ -2,15 +2,8 @@ import ControlBtn from "./settingBtn";
 import { AiOutlineLogin, AiOutlineLogout, AiOutlineSearch, AiOutlineSetting, AiOutlineUser } from 'react-icons/ai'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from "next/router";
-import { useMemo } from "react";
 const Setting = () => {
-    // const item = {
-    //     hidden: {
-    //         opacity: 0,
-    //         scale: 0,
-    //         transition: { duration: 0.1 }
-    //     },
-    // }
+
     const router = useRouter();
 
     return (

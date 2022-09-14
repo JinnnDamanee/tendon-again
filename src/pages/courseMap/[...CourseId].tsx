@@ -19,7 +19,7 @@ const CoursePage = () => {
                 <ThemeToggle />
                 <BreadCrumbNav />
                 <Suspense fallback={<LoadingSpinner />}>
-                    <CourseMap CourseId={Number(CourseId)} />
+                    <CourseMap courseId={Number(CourseId)} />
                 </Suspense>
             </main>
         </CourseProvider>
