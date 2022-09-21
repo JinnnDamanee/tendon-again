@@ -1,25 +1,16 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useXarrow, Xwrapper } from 'react-xarrows'
 import Xarrow from 'react-xarrows'
 import { useTheme } from 'next-themes'
-import { useCourse } from './CourseManager'
-import { CourseNodeProps, RenderCourseProps } from '../../Types'
-import { mapToRenderProps } from './useMapToRender'
-import ArrowBox from './ArrowBox'
+import { RenderCourseProps } from '../../Types'
+import ArrowBox from '../ArrowBox'
 
-
-// Dumb component that renders a course node
-const CourseNode = ({ courseId, courseName, next, setChildReady }: RenderCourseProps) => {
-    // use courseId to get the course data from the server
-    // but we will mock it for now
+const CourseNode = ({ courseId, courseName, next, setChildReady, isRender, status }: RenderCourseProps) => {
     const { theme } = useTheme();
     const updateArrow = useXarrow();
     const [subChildReady, setSubChildReady] = useState(false);
-    const { addCourseToMap, isCourseInMap } = useCourse();
-
     const nodeRef = useRef(null)
-    // const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         setTimeout(() => setChildReady(true), 200);
@@ -63,21 +54,15 @@ const CourseNode = ({ courseId, courseName, next, setChildReady }: RenderCourseP
                 <Xwrapper>
                     {
                         next === undefined ? null :
-                            next.map(item => {
-                                const mappedNode = mapToRenderProps({
-                                    courseId: item.courseId,
-                                    courseName: item.courseName,
-                                    status: item.status,
-                                    next: item.next,
-                                }, setSubChildReady)
+                            next.map((item, index) => {
+                                if (!isRender) return null;
                                 return (
                                     (
-                                        <div key={item.courseId}
-                                            className="flex items-center"
-                                        >
+                                        <div key={index} className="flex items-center">
                                             <CourseNode
-                                                key={mappedNode.courseId}
-                                                {...mappedNode}
+                                                key={item.courseId}
+                                                {...item}
+                                                setChildReady={setSubChildReady}
                                             />
                                             <ArrowBox>
                                                 {subChildReady &&

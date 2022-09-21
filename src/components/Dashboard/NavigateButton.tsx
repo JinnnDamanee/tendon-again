@@ -3,7 +3,7 @@ import { NavigateProps } from '../../Types';
 const NavigateButton = ({ Icon, direction, onClick }: NavigateProps) => {
     return (
         <main className="w-0 h-0">
-            <motion.button className={`bg-slate-400 text-white dark:bg-gray-light shadow-xl h-fit w-fit rounded-full relative flex justify-center items-center p-2 top-56 
+            <motion.button className={`bg-slate-400 text-white dark:bg-gray-light shadow-xl h-fit w-fit rounded-full relative flex justify-center items-center p-2 top-[205px] z-10
             ${direction === 'right' ? '-right-0' : '-left-12'}`}
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.1 }}

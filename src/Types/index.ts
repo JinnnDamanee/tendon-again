@@ -19,11 +19,13 @@ export interface CourseNodeProps {
 }
 
 export interface RenderCourseProps {
+    // renderId: number
     courseId: number
     courseName: string
     status: string
     next?: RenderCourseProps[]
     setChildReady: (value: boolean) => void
+    isRender: boolean
 }
 
 export {

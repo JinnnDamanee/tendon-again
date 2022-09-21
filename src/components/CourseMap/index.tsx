@@ -1,16 +1,16 @@
 import CourseNode from "./CourseNode";
 import { motion } from 'framer-motion'
-import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
+import Xarrow, { Xwrapper } from 'react-xarrows'
 import { useTheme } from "next-themes";
-import React, { memo, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { MockRelateCourse } from "../../data/graphNode";
-import { mapToRenderProps } from "./useMapToRender";
-import ArrowBox from "./ArrowBox";
+import { CourseNodeProps } from "../../Types";
+import ArrowBox from "../ArrowBox";
+import { usePrepNode } from "./CourseViewModel";
 
 interface CourseMapProps {
     courseId: number
 }
-
 
 // Entire View of the Course Map (Container)
 const CourseMap = ({ courseId }: CourseMapProps) => {
@@ -18,7 +18,32 @@ const CourseMap = ({ courseId }: CourseMapProps) => {
     const [childReady, setChildReady] = useState(false);
     const [onClient, setOnClient] = useState(false);
 
-    useEffect(() => setOnClient(true), [])
+    const StartCourseNode: CourseNodeProps = {
+        courseId: courseId,
+        courseName: "Introduction to Programming",
+        status: 'completed',
+        next: MockRelateCourse
+    }
+
+    const mappedNodeprop = usePrepNode(StartCourseNode, setChildReady);
+
+
+    /*
+    // Prep the data for rendering
+    const mappedNodeprop: RenderCourseProps[] = useMemo(() => {
+        return MockRelateCourse.map(node => {
+            return mapToRenderProps(node, setChildReady)
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [courseId])
+    */
+
+    useEffect(() => {
+        setOnClient(true)
+        console.log(mappedNodeprop);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mappedNodeprop])
+
     if (!onClient) return null;
 
     return (
@@ -29,36 +54,31 @@ const CourseMap = ({ courseId }: CourseMapProps) => {
             >
                 {/* Start Node */}
                 <CourseNode
-                    key={courseId}
-                    courseId={courseId}
-                    courseName="Introduction to Programming"
-                    status='completed'
-                    setChildReady={setChildReady}
+                    // renderId={StartCourseNode.courseId} // Types require this, but it's not used
+                    key={StartCourseNode.courseId}
+                    courseId={StartCourseNode.courseId}
+                    courseName={StartCourseNode.courseName}
+                    status={StartCourseNode.status}
+                    setChildReady={() => { }} // No Child will use this one so it's fine
+                    isRender={true}
                 />
                 <div className="flex flex-col gap-10">
                     <Xwrapper>
-                        {MockRelateCourse.map((item, index) => {
-                            const mappedNode = mapToRenderProps({
-                                courseId: item.courseId,
-                                courseName: item.courseName,
-                                status: item.status,
-                                next: item.next,
-                            }, setChildReady)
 
+                        {/* Like Next Mapping Render */}
+                        {mappedNodeprop.map((item, index) => {
                             return (
                                 // End Node
-                                <div key={index}
-                                    className="flex gap-10 items-center"
-                                >
+                                <div key={index} className="flex gap-10 items-center" >
                                     <CourseNode
-                                        key={mappedNode.courseId}
-                                        {...mappedNode}
+                                        key={item.courseId}
+                                        {...item}
                                     />
                                     {
                                         childReady && (
                                             <ArrowBox>
                                                 <Xarrow
-                                                    start={courseId.toString()}
+                                                    start={StartCourseNode.courseId.toString()}
                                                     end={item.courseId.toString()}
                                                     color={theme === 'light' ? '#475569' : '#961EFF'}
                                                 />
@@ -74,7 +94,5 @@ const CourseMap = ({ courseId }: CourseMapProps) => {
         </>
     )
 }
-
-
 
 export default CourseMap;

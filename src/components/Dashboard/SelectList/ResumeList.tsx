@@ -4,23 +4,24 @@ import Router from 'next/router'
 import { useEffect, useState } from 'react'
 import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
 import { resumeProps } from '../../../data'
+import ArrowBox from '../../ArrowBox'
 const ResumeList = () => {
     const { theme } = useTheme();
     const [isReady, setIsReady] = useState(false);
 
     const resumeData: resumeProps[] = [
         {
-            id: 1,
+            id: 101,
             courseName: "Web Development",
             setIsReady: setIsReady,
         },
         {
-            id: 2,
+            id: 102,
             courseName: "Web Development",
             setIsReady: setIsReady,
         },
         {
-            id: 3,
+            id: 103,
             courseName: "Web Development",
             setIsReady: setIsReady,
         },
@@ -39,16 +40,14 @@ const ResumeList = () => {
                                 <ResumeItem key={item.id} {...item} setIsReady={setIsReady} />
                                 {
                                     isReady && (
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                        >
+                                        <ArrowBox>
                                             <Xarrow
                                                 start={'dashboard'}
                                                 end={item.id.toString()}
                                                 color={theme === 'light' ? '#475569' : '#961EFF'}
                                             />
-                                        </motion.div>
+                                        </ArrowBox>
+
                                     )
                                 }
                             </div>
