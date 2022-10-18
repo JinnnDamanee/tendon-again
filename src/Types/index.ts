@@ -11,10 +11,15 @@ interface NavigateProps {
     direction: string,
     onClick: () => void,
 }
+
+export enum StatusType {
+    'COMPLETED', 'INPROGRESS', 'NOTSTARTED'
+}
+
 export interface CourseNodeProps {
     courseId: number
     courseName: string
-    status: string
+    status: StatusType
     next?: CourseNodeProps[]
 }
 
@@ -22,7 +27,7 @@ export interface RenderCourseProps {
     // renderId: number
     courseId: number
     courseName: string
-    status: string
+    status: StatusType
     next?: RenderCourseProps[]
     setChildReady: (value: boolean) => void
     isRender: boolean

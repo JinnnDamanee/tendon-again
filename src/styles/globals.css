@@ -22,6 +22,6 @@
   }
   .course-node {
     @apply p-4 text-xl rounded-lg shadow-lg w-max h-fit
-            bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon mx-10;
+            bg-slate-500 dark:bg-gray-normal text-white mx-10;
   }
 }

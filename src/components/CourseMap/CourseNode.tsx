@@ -5,57 +5,64 @@ import Xarrow from 'react-xarrows'
 import { useTheme } from 'next-themes'
 import { RenderCourseProps } from '../../Types'
 import ArrowBox from '../ArrowBox'
+import { nodeStatusColor } from './CourseViewModel'
 
 const CourseNode = ({ courseId, courseName, next, setChildReady, isRender, status }: RenderCourseProps) => {
     const { theme } = useTheme();
     const updateArrow = useXarrow();
     const [subChildReady, setSubChildReady] = useState(false);
     const nodeRef = useRef(null)
-
     useEffect(() => {
         setTimeout(() => setChildReady(true), 200);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const statusColor = useMemo(() => nodeStatusColor(status), [])
+
     return (
         <>
-            <motion.button
-                className="course-node"
-                id={courseId.toString()}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{
-                    opacity: 1, scale: 1,
-                    // height: isOpen ? 'auto' : 'auto',
-                }}
-                ref={nodeRef}
-                exit={{ opacity: 0, scale: 0 }}
-                transition={{ duration: 0.2, type: 'spring', stiffness: 100 }}
-                //drag
-                dragConstraints={nodeRef}
-                whileTap={{ scale: 0.9 }}
-                whileHover={{ scale: 1.1 }}
-
-                onUpdate={() => {
-                    setInterval(updateArrow, 200)
-                }}
-            >
-                <h1>{courseName}</h1>
-
-                {/* <AnimatePresence
+            {isRender && (
+                <div className='indicator'>
+                    <span className="indicator-item indicator-start badge mx-10 dark:bg-gray-medium dark:shadow-xl dark:shadow-gray-dark dark:border-0">{["✓", "...", "!"][status]}</span>
+                    <motion.button
+                        className={`course-node ${statusColor}`}
+                        id={courseId.toString()}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{
+                            opacity: 1, scale: 1,
+                            // height: isOpen ? 'auto' : 'auto',
+                        }}
+                        ref={nodeRef}
+                        exit={{ opacity: 0, scale: 0 }}
+                        transition={{ duration: 0.2, type: 'spring', stiffness: 100 }}
+                        //drag
+                        dragConstraints={nodeRef}
+                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.1 }}
+                        onUpdate={() => {
+                            setInterval(updateArrow, 200)
+                        }}
+                    >
+                        <h1>{courseName}</h1>
+                        {/* <AnimatePresence
                 exitBeforeEnter
                 >
                 {
                     isOpen && <CourseDetail courseData={courseData} />
                 }
             </AnimatePresence> */}
+                    </motion.button>
+                </div>
+            )}
 
-            </motion.button>
+            {/* Next Course */}
             <div className="flex flex-col gap-10">
                 <Xwrapper>
                     {
                         next === undefined ? null :
                             next.map((item, index) => {
-                                if (!isRender) return null;
+                                // if (!item.isRender) return null;
                                 return (
                                     (
                                         <div key={index} className="flex items-center">

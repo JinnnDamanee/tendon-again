@@ -1,42 +1,42 @@
-import { CourseNodeProps } from "../Types";
+import { CourseNodeProps, StatusType } from "../Types";
 
 export const MockRelateCourse: CourseNodeProps[] = [
     {
         courseId: 2,
         courseName: "First",
-        status: 'completed',
+        status: StatusType.COMPLETED,
         next: [
             {
                 courseId: 3,
                 courseName: "Framework",
-                status: 'completed',
+                status: StatusType.INPROGRESS,
                 next: [
                     {
                         courseId: 4,
                         courseName: "React",
-                        status: 'completed',
+                        status: StatusType.NOTSTARTED,
                     },
                     {
                         courseId: 5,
                         courseName: "Vue",
-                        status: 'completed',
+                        status: StatusType.NOTSTARTED,
                     },
                 ]
             },
             {
                 courseId: 7,
                 courseName: "Language",
-                status: 'completed',
+                status: StatusType.NOTSTARTED,
                 next: [
                     {
                         courseId: 8,
                         courseName: "JavaScript",
-                        status: 'completed',
+                        status: StatusType.NOTSTARTED,
                     },
                     {
                         courseId: 9,
                         courseName: "TypeScript",
-                        status: 'completed',
+                        status: StatusType.NOTSTARTED,
                     },
                 ]
             }
@@ -45,27 +45,13 @@ export const MockRelateCourse: CourseNodeProps[] = [
     {
         courseId: 6,
         courseName: "Second",
-        status: 'completed',
+        status: StatusType.COMPLETED,
         next: [
             {
                 courseId: 7,
                 courseName: "Language",
-                status: 'completed',
+                status: StatusType.NOTSTARTED,
             }
         ]
     },
-
-    /*
-    {
-        courseId: 4,
-        courseName: "JavaScript",
-    },
-    {
-        courseId: 5,
-        courseName: "React",
-    },
-    {
-        courseId: 6,
-        courseName: "Node.js",
-    }*/
 ]

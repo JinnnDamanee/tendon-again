@@ -1,62 +1,58 @@
-import { useEffect, useState } from "react";
-import { CourseNodeProps, RenderCourseProps } from "../../Types";
-const { v4: uuidv4 } = require('uuid');
+import { CourseNodeProps, RenderCourseProps, StatusType } from "../../Types";
 /*
     View Model
 */
-export const setArrowReady = () => {
 
+export const nodeStatusColor = (status: StatusType): string => {
+    switch (status) {
+        case StatusType.NOTSTARTED:
+            return ''
+        case StatusType.INPROGRESS:
+            return 'bg-purple-light dark:border-2 dark:border-pale-yellow dark:shadow-pale-yellow'
+        case StatusType.COMPLETED:
+            return 'bg-purple-neon dark:border-2 dark:border-purple-light dark:shadow-purple-neon'
+        default:
+            return "ERROR"
+    }
 }
 
+export const prepNode = (
+    startNode: CourseNodeProps,
+    defaultSetChildReady: (value: boolean) => void): RenderCourseProps[] => {
 
+    const outputNode: RenderCourseProps[] = [];
+    const nodeHistory: number[] = [];
 
-export const usePrepNode = (
-    courseNodes: CourseNodeProps,
-    setChildReady: (value: boolean) => void): RenderCourseProps[] => {
-
-    const [nodeHistory, setNodeHistory] = useState<number[]>([])
-    const [outputNode, setOutputNode] = useState<RenderCourseProps[]>([])
-
-    useEffect(() => {
-        courseNodes.next?.map(node => {
-            setOutputNode(prev => [...prev, mapToRenderProps(node, setChildReady)])
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const mapToRenderProps = (node: CourseNodeProps, setChildReady: (value: boolean) => void): RenderCourseProps => {
-
+    // Recursive function to map the node
+    const mapToRenderProps = (node: CourseNodeProps): RenderCourseProps => {
         let isShouldRender;
-
         if (nodeHistory.includes(node.courseId)) {
-            isShouldRender = false
+            isShouldRender = false;
         } else {
-            isShouldRender = true
-            setNodeHistory(prev => [...prev, node.courseId])
-
-            // setNodeHistory([...nodeHistory, node.courseId])
+            isShouldRender = true;
+            nodeHistory.push(node.courseId);
         }
-
         const next: any = node.next === undefined ? undefined : node.next.map(childNode => {
-            return mapToRenderProps(childNode, setChildReady)
+            return mapToRenderProps(childNode)
         })
-
         const mapNode: RenderCourseProps = {
             // renderId: uuidv4(),
             courseId: node.courseId,
             courseName: node.courseName,
             status: node.status,
             next: next,
-            setChildReady: setChildReady,
+            setChildReady: defaultSetChildReady,
             isRender: isShouldRender
         }
-
-        // setMappedNodeList([...mappedNodeList, mapNode])
-
         return mapNode;
     }
-    console.log(nodeHistory);
+
+    startNode.next?.map(initNode => {
+        const node = mapToRenderProps(initNode);
+        outputNode.push(node);
+    })
+
+    console.log("outputNode : ", outputNode);
 
     return outputNode;
 }
-
