@@ -3,15 +3,19 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useXarrow, Xwrapper } from 'react-xarrows'
 import Xarrow from 'react-xarrows'
 import { useTheme } from 'next-themes'
-import { RenderCourseProps } from '../../Types'
-import ArrowBox from '../ArrowBox'
+import { RenderCourseProps } from '../../types'
+import ArrowBox from '../baseComponents/ArrowBox'
 import { nodeStatusColor } from './CourseViewModel'
+import { useRouter } from 'next/router'
 
 const CourseNode = ({ courseId, courseName, next, setChildReady, isRender, status }: RenderCourseProps) => {
     const { theme } = useTheme();
     const updateArrow = useXarrow();
     const [subChildReady, setSubChildReady] = useState(false);
     const nodeRef = useRef(null)
+    const router = useRouter();
+
+
     useEffect(() => {
         setTimeout(() => setChildReady(true), 200);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,6 +46,9 @@ const CourseNode = ({ courseId, courseName, next, setChildReady, isRender, statu
                         whileHover={{ scale: 1.1 }}
                         onUpdate={() => {
                             setInterval(updateArrow, 200)
+                        }}
+                        onClick={() => {
+                            router.push(`${router.asPath}/${courseId}`)
                         }}
                     >
                         <h1>{courseName}</h1>

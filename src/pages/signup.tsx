@@ -1,21 +1,17 @@
-// import Signup from "../components/signup";
-import ThemeToggle from "../components/ThemeToggle";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "@baseComponents/LoadingSpinner";
+import MainLayout from "../components/Layout/MainLayout";
 
 const Signup = dynamic(() => import('../components/signup'));
 
 const SignupPage = () => {
     return (
-        <main
-            className="main-bg"
-        >
-            <ThemeToggle />
+        <MainLayout>
             <Suspense fallback={<LoadingSpinner />}>
                 <Signup />
             </Suspense>
-        </main>
+        </MainLayout>
     )
 }
 

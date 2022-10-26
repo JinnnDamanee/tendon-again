@@ -1,4 +1,4 @@
-import { CourseNodeProps, RenderCourseProps, StatusType } from "../../Types";
+import { CourseNodeProps, RenderCourseProps, StatusType } from "../../types";
 /*
     View Model
 */

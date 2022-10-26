@@ -4,7 +4,7 @@ const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <main className="fixed top-0 right-0 m-10">
+        <main className="flex justify-end mt-4 mr-4">
             <input
                 type="checkbox"
                 className="toggle"

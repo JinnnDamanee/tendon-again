@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import Router from 'next/router'
-import { useEffect, useState } from 'react'
-import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows'
+import { useState } from 'react'
+import Xarrow, { Xwrapper } from 'react-xarrows'
 import { resumeProps } from '../../../data'
-import ArrowBox from '../../ArrowBox'
+import ArrowBox from '../../baseComponents/ArrowBox'
+import ResumeItem from './ResumeItem'
+
+
 const ResumeList = () => {
     const { theme } = useTheme();
     const [isReady, setIsReady] = useState(false);
@@ -17,12 +19,12 @@ const ResumeList = () => {
         },
         {
             id: 102,
-            courseName: "Web Development",
+            courseName: "Machine Learning",
             setIsReady: setIsReady,
         },
         {
             id: 103,
-            courseName: "Web Development",
+            courseName: "Embedded System",
             setIsReady: setIsReady,
         },
     ]
@@ -56,33 +58,6 @@ const ResumeList = () => {
                 }
             </Xwrapper>
         </motion.main>
-    )
-}
-const ResumeItem = ({ id, courseName, setIsReady }: resumeProps) => {
-    const updateArrow = useXarrow();
-
-    useEffect(() => {
-        setTimeout(() => setIsReady(true), 200)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    return (
-        <motion.button className="p-2 rounded-lg bg-slate-500 dark:bg-gray-normal text-white dark:border-2 dark:border-purple-light dark:shadow-purple-neon shadow-lg"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            drag
-            dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.1 }}
-            onClick={() => Router.push(`/courseMap/${id}`)}
-            transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-            id={id.toString()}
-            onUpdate={() => {
-                setInterval(updateArrow, 100)
-            }}
-        >
-            {courseName}
-        </motion.button>
     )
 }
 export default ResumeList;

@@ -18,7 +18,7 @@
     @apply bg-slate-300 dark:bg-gray-normal;
   }
   .main-bg {
-    @apply flex flex-col items-center justify-center min-h-screen p-4 bg-slate-300 dark:bg-gray-dark shadow-2xl overflow-hidden;
+    @apply grid grid-rows-6 min-h-screen min-w-fit bg-slate-300 dark:bg-gray-dark;
   }
   .course-node {
     @apply p-4 text-xl rounded-lg shadow-lg w-max h-fit

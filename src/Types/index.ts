@@ -1,6 +1,5 @@
 import { IconType } from "react-icons";
 
-
 enum modeType {
     'main',
     'search',

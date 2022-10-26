@@ -3,12 +3,12 @@ import Acheivement from "./Acheivement";
 import Activity from "./Activity";
 import Statistic from "./Statistic";
 import { AnimatePresence, motion } from "framer-motion";
-import Setting from "./Setting";
+import Setting from "./setting";
 import { IoCaretForwardOutline } from 'react-icons/io5'
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import ResumeList from "./SelectList/ResumeList";
-import { modeType } from "../../Types";
+import ResumeList from "./resume/ResumeList";
+import { modeType } from "../../types";
 import NavigateButton from "./NavigateButton";
 
 const DashBoard = () => {
@@ -39,7 +39,7 @@ const DashBoard = () => {
 
     return (
         <motion.div
-            className="flex gap-x-20"
+            className="flex gap-x-20 justify-center "
         >
             <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px]`}
                 key={'dashboard'}

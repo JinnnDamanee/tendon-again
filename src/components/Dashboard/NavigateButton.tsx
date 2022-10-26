@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { NavigateProps } from '../../Types';
+import { NavigateProps } from '../../types';
 const NavigateButton = ({ Icon, direction, onClick }: NavigateProps) => {
     return (
         <main className="w-0 h-0">
