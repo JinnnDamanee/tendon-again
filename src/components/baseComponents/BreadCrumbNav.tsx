@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 const BreadCrumbNav = () => {
     const router = useRouter();
     useEffect(() => {
-        console.log('BCN -> ', router.query);
+        // console.log('BCN -> ', router.query);
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -29,10 +29,21 @@ const BreadCrumbNav = () => {
                 <ul>
                     <>
                         {
+                            <li>
+                                <NavItem
+                                    name={'Dashboard'}
+                                    link={'/'}
+                                />
+                            </li>
+                        }
+                        {
                             router.query.courseId && (
                                 <>
                                     <li>
-                                        <NavItem name={router.query.courseId} link={`/courseMap/${router.query.courseId}`} />
+                                        <NavItem
+                                            name={router.query.courseId}
+                                            link={`/courseMap/${router.query.courseId}`}
+                                        />
                                     </li>
                                 </>
                             )
@@ -41,7 +52,13 @@ const BreadCrumbNav = () => {
                             router.query.lessonId && (
                                 <>
                                     <li>
-                                        <NavItem name={router.query.lessonId} link={`/courseMap/${router.query.lessonId}`} />
+                                        {/* <NavItem
+                                            name={router.query.lessonId}
+                                            link={`/courseMap/${router.query.lessonId}`}
+                                        /> */}
+                                        <span>
+                                            {router.query.lessonId}
+                                        </span>
                                     </li>
                                 </>
                             )

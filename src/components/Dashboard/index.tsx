@@ -5,14 +5,14 @@ import Statistic from "./Statistic";
 import { AnimatePresence, motion } from "framer-motion";
 import Setting from "./setting";
 import { IoCaretForwardOutline } from 'react-icons/io5'
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import ResumeList from "./resume/ResumeList";
-import { modeType } from "../../types";
+import { modeType } from "types";
 import NavigateButton from "./NavigateButton";
+import DashBoardContainer from "@components/baseComponents/DashBoardContainer";
 
 const DashBoard = () => {
-    const dashboardRef = useRef(null)
     const [mode, setMode] = useState<modeType>(modeType.main);
     //const [width, setWidth] = useState(0)
 
@@ -39,23 +39,9 @@ const DashBoard = () => {
 
     return (
         <motion.div
-            className="flex gap-x-20 justify-center "
+            className="flex gap-x-20 justify-center"
         >
-            <motion.main className={`flex gap-4 p-6 bg-slate-100 dark:bg-gray-normal rounded-3xl min-h-[500px]`}
-                key={'dashboard'}
-                initial={{ opacity: 1, y: -100, scale: 0 }}
-                animate={{
-                    opacity: 1, y: 0, scale: 1,
-                    // width: width === 0 ? '100%' : width
-                    width: mode === modeType.main ? '728px' : '344px'
-                }}
-                exit={{ opacity: 1, y: -100, scale: 0 }}
-                drag={mode === modeType.main ? false : true}
-                id='dashboard'
-                ref={dashboardRef}
-                dragConstraints={dashboardRef}
-            >
-
+            <DashBoardContainer mode={mode}>
                 <NavigateButton
                     direction="left"
                     Icon={AiOutlineSearch}
@@ -80,7 +66,7 @@ const DashBoard = () => {
                     Icon={IoCaretForwardOutline}
                     onClick={() => navigateMode()}
                 />
-            </motion.main >
+            </DashBoardContainer>
             {mode === modeType.resume && <ResumeList />}
 
         </motion.div>

@@ -1,25 +1,24 @@
-import CourseNode from "./CourseNode";
+import CourseNode from "./LearningNode";
 import { motion } from 'framer-motion'
 import Xarrow, { Xwrapper } from 'react-xarrows'
 import { useTheme } from "next-themes";
 import React, { useEffect, useMemo, useState } from "react"
 import { MockRelateCourse } from "@data/graphNode";
-import { CourseNodeProps, StatusType } from "types";
+import { LearningNodeProps, StatusType } from "types";
 import ArrowBox from "../baseComponents/ArrowBox";
-import { prepNode } from "./CourseViewModel";
-// import { usePrepNode } from "./CourseViewModel";
+import { prepNode } from "./LeaningNodeViewModel";
 
 interface CourseMapProps {
     courseId: number
 }
 
 // Entire View of the Course Map (Container)
-const CourseMap = ({ courseId }: CourseMapProps) => {
+const LearningNodeMap = ({ courseId }: CourseMapProps) => {
     const { theme } = useTheme();
     const [childReady, setChildReady] = useState(false);
     const [onClient, setOnClient] = useState(false);
 
-    const startCourseNode: CourseNodeProps = {
+    const startCourseNode: LearningNodeProps = {
         courseId: courseId,
         courseName: "Introduction to Programming",
         status: StatusType.COMPLETED,
@@ -59,6 +58,7 @@ const CourseMap = ({ courseId }: CourseMapProps) => {
                         {mappedNodeprop.map((item, index) => {
                             return (
                                 // End Node
+                                // logic Rendering
                                 <div key={index} className="flex gap-10 items-center" >
                                     <CourseNode
                                         key={item.courseId}
@@ -85,4 +85,4 @@ const CourseMap = ({ courseId }: CourseMapProps) => {
     )
 }
 
-export default CourseMap;
+export default LearningNodeMap;

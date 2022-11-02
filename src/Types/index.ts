@@ -1,11 +1,11 @@
 import { IconType } from "react-icons";
 
-enum modeType {
+export enum modeType {
     'main',
     'search',
     'resume'
 }
-interface NavigateProps {
+export interface NavigateProps {
     Icon: IconType,
     direction: string,
     onClick: () => void,
@@ -15,27 +15,19 @@ export enum StatusType {
     'COMPLETED', 'INPROGRESS', 'NOTSTARTED'
 }
 
-export interface CourseNodeProps {
+export interface LearningNodeProps {
     courseId: number
     courseName: string
     status: StatusType
-    next?: CourseNodeProps[]
+    next?: LearningNodeProps[]
 }
 
-export interface RenderCourseProps {
+export interface RenderLearningNodeProps {
     // renderId: number
     courseId: number
     courseName: string
     status: StatusType
-    next?: RenderCourseProps[]
+    next?: RenderLearningNodeProps[]
     setChildReady: (value: boolean) => void
     isRender: boolean
-}
-
-export {
-    modeType,
-}
-
-export type {
-    NavigateProps,
 }

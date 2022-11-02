@@ -1,4 +1,4 @@
-import { CourseNodeProps, RenderCourseProps, StatusType } from "../../types";
+import { LearningNodeProps, RenderLearningNodeProps, StatusType } from "../../types";
 /*
     View Model
 */
@@ -17,14 +17,14 @@ export const nodeStatusColor = (status: StatusType): string => {
 }
 
 export const prepNode = (
-    startNode: CourseNodeProps,
-    defaultSetChildReady: (value: boolean) => void): RenderCourseProps[] => {
+    startNode: LearningNodeProps,
+    defaultSetChildReady: (value: boolean) => void): RenderLearningNodeProps[] => {
 
-    const outputNode: RenderCourseProps[] = [];
+    const outputNode: RenderLearningNodeProps[] = [];
     const nodeHistory: number[] = [];
 
     // Recursive function to map the node
-    const mapToRenderProps = (node: CourseNodeProps): RenderCourseProps => {
+    const mapToRenderProps = (node: LearningNodeProps): RenderLearningNodeProps => {
         let isShouldRender;
         if (nodeHistory.includes(node.courseId)) {
             isShouldRender = false;
@@ -35,7 +35,7 @@ export const prepNode = (
         const next: any = node.next === undefined ? undefined : node.next.map(childNode => {
             return mapToRenderProps(childNode)
         })
-        const mapNode: RenderCourseProps = {
+        const mapNode: RenderLearningNodeProps = {
             // renderId: uuidv4(),
             courseId: node.courseId,
             courseName: node.courseName,

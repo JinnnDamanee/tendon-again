@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import Setting from '../Dashboard/setting';
+import Setting from '../dashboard/setting';
 const SignupBox = () => {
     return (
         <motion.main

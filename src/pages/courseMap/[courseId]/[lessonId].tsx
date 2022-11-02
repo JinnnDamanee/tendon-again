@@ -1,5 +1,7 @@
+import LearningNode from "@components/baseComponents/LearningNodeMotion";
 import LoadingSpinner from "@components/baseComponents/LoadingSpinner";
-import MainLayout from "@components/Layout/MainLayout";
+import MainLayout from "@components/layout/MainLayout";
+import LessonNode from "@components/LessonNode";
 import { useRouter } from "next/router";
 import { Suspense } from "react";
 
@@ -9,7 +11,7 @@ const Lesson = () => {
     return (
         <MainLayout>
             <Suspense fallback={<LoadingSpinner />}>
-                <h1>Lesson {lessonId}</h1>
+                <LessonNode />
             </Suspense>
         </MainLayout>
     )
