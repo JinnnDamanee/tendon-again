@@ -1,4 +1,4 @@
-import Tooltip from '@components/baseComponents/Tooltip';
+import Tooltip from 'components/baseComponents/Tooltip';
 import { motion } from 'framer-motion'
 import { IconType } from 'react-icons'
 
