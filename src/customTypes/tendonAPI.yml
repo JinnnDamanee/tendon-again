@@ -1,0 +1,871 @@
+openapi: "3.0.2"
+info:
+    title: Tendon API
+    version: "1.0"
+servers:
+    - url: http://tendont52@tendon.tplinkdns.com
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+
+    schemas:
+        user:
+            type: object
+            properties:
+                type:
+                    type: string
+                    example: "user"
+                id:
+                    type: string
+                    example: "6303306a448342f4bb47fb2e"
+                attributes:
+                    type: object
+                    properties:
+                        firstName:
+                            type: string
+                            example: "John"
+                        lastName:
+                            type: string
+                            example: "dodo"
+                        email:
+                            type: string
+                            example: "John@email.com"
+                        role:
+                            type: string
+                            example: "student"
+                            enum:
+                                - student
+                                - teacher
+                                - admin
+                        createAt:
+                            type: integer
+                            example: 1663598072
+                        updateAt:
+                            type: integer
+                            example: 1663599923
+        briefCurriculum:
+            type: object
+            properties:
+                type:
+                    type: string
+                    example: "briefCurriculum"
+                id:
+                    type: string
+                    example: "63173c3f997fd51cea50fb32"
+                attributes:
+                    type: object
+                    properties:
+                        curriculumName:
+                            type: string
+                            example: "Gen physics"
+                        curriculumDescription:
+                            type: string
+                            example: "University physics for year 1"
+                        accessLevel:
+                            type: string
+                            enum:
+                                - public
+                                - inviteOnly
+                                - private
+                        proGress:
+                            type: number
+                            minimum: 0
+                            maximum: 100
+                            example: 79
+        curriculum:
+            type: object
+            properties:
+                type:
+                    type: string
+                    example: "curriculum"
+                id:
+                    type: string
+                    example: "63173c3f997fd51cea50fb32"
+                attributes:
+                    type: object
+                    properties:
+                        curriculumName:
+                            type: string
+                            example: "Gen physics"
+                        curriculumDescription:
+                            type: string
+                            example: "University physics for year 1"
+                        accessLevel:
+                            type: string
+                            enum:
+                                - public
+                                - inviteOnly
+                                - private
+                        subLearningNode:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/briefLearningNode"
+                relationships:
+                    type: object
+                    properties:
+                        progress:
+                            type: number
+                            minimum: 0
+                            maximum: 100
+                            example: 79
+
+        briefLearningNode:
+            type: object
+            properties:
+                type:
+                    type: string
+                    example: "briefLearningNode"
+                id:
+                    type: string
+                attributes:
+                    type: object
+                    properties:
+                        curriculums:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/briefCurriculum"
+                        learningNodeName:
+                            type: string
+                        learningNodeDescription:
+                            type: string
+
+        learningNode:
+            type: object
+            properties:
+                type:
+                    type: string
+                    example: "briefLearningNode"
+                id:
+                    type: string
+                attributes:
+                    type: object
+                    properties:
+                        learningNodeName:
+                            type: string
+                        learningNodeDescription:
+                            type: string
+                        curriculums:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/briefCurriculum"
+                        subNode:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/node"
+                        nextLearningNodeId:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/briefLearningNode"
+                        previousLearningNodeId:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/briefLearningNode"
+        node:
+            type: object
+            properties:
+                type:
+                    type: string
+                    enum:
+                        - pdfNode
+                        - videoNode
+                        - textNode
+                        - soundNode
+                        - imageNode
+                id:
+                    type: string
+                attributes:
+                    type: object
+                    properties:
+                        priority:
+                            type: string
+                            enum:
+                                - require
+                                - extension
+                                - optional
+                        size:
+                            type: number
+                        resources:
+                            type: string
+                            example: /resources/pdf/1234
+
+
+    responses:
+        successAuth:
+            description: edit user information success
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Success
+                            token:
+                                type: string
+        unauthorizedError:
+            description: Access token is missing or invalid
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            massage:
+                                type: string
+                                example: Unauthorized
+        notFoundError:
+            description: Not found
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            massage:
+                                type: string
+                                example: Not found
+        inputError:
+            description: Input in wrong format or conflict
+            content:
+                application/json:
+                    schema:
+                        type: object
+                    examples:
+                        emailAlreadyUse:
+                            value:
+                                massage: This email is already use
+                        passwordToShort:
+                            value:
+                                massage: password must at least 12 characters long
+                        passwordToEasy:
+                            value:
+                                massage: password must a combination of uppercase letters, lowercase letters, numbers, and symbols.
+
+paths:
+    /api/users/{id}:
+        get:
+            description: get user information at specific id
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            security:
+                - bearerAuth: []
+            responses:
+                "200":
+                    description: get user information success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    data:
+                                        $ref: "#/components/schemas/user"
+                                    relationships:
+                                        type: object
+                                        properties:
+                                            curriculums:
+                                                type: array
+                                                items:
+                                                    $ref: "#/components/schemas/briefCurriculum"
+                "401":
+                    $ref: "#/components/responses/unauthorizedError"
+                "404":
+                    $ref: "#/components/responses/notFoundError"
+        patch:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            security:
+                - bearerAuth: []
+            requestBody:
+                description: Can sent only some attributes
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                firstName:
+                                    type: string
+                                    example: "John"
+                                lastName:
+                                    type: string
+                                    example: "dodo"
+                                email:
+                                    type: string
+                                    example: "John@email.com"
+                                password:
+                                    type: string
+                                    example: "43aad@#134"
+            responses:
+                "200":
+                    $ref: "#/components/responses/successAuth"
+                "401":
+                    $ref: "#/components/responses/unauthorizedError"
+                "404":
+                    $ref: "#/components/responses/notFoundError"
+                "406":
+                    $ref: "#/components/responses/inputError"
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            security:
+                - bearerAuth: []
+            responses:
+                "200":
+                    $ref: "#/components/responses/successAuth"
+                "406":
+                    description: wrong email or password
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: wrong email or password
+    /api/user/sign-up:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                attributes:
+                                    required:
+                                        - firstName
+                                        - lastName
+                                        - email
+                                        - password
+                                    type: object
+                                    properties:
+                                        firstName:
+                                            type: string
+                                            example: "NewName"
+                                        lastName:
+                                            type: string
+                                            example: "NewLastName"
+                                        email:
+                                            type: string
+                                            example: "NewEmail"
+                                        password:
+                                            type: string
+                                            format: password
+                                            example: "NewPassword"
+            responses:
+                "200":
+                    $ref: "#/components/responses/successAuth"
+                "401":
+                    $ref: "#/components/responses/unauthorizedError"
+                "404":
+                    $ref: "#/components/responses/notFoundError"
+                "406":
+                    $ref: "#/components/responses/inputError"
+
+
+    /api/user/sign-in:
+        post:
+            security:
+                - bearerAuth: []
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                    example: tendon@gmail.com
+                                password:
+                                    type: string
+                                    format: password
+            responses:
+                "200":
+                    $ref: "#/components/responses/successAuth"
+                "406":
+                    description: wrong email or password
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: wrong email or password
+
+    /api/user/sign-out:
+        post:
+            security:
+                - bearerAuth: []
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                    example: tendon@gmail.com
+            responses:
+                "200":
+                    description: logout success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Success
+                "401":
+                    $ref: "#/components/responses/unauthorizedError"
+                "406":
+                    description: email not match
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Email not match
+
+    /api/token/refresh:
+        post:
+            security:
+                - bearerAuth: []
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                refreshToken:
+                                    type: string
+            responses:
+                "200":
+                    description: Everything went fine
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Success
+                                    token:
+                                        type: string
+                                    refreshToken:
+                                        type: string
+                "401":
+                    $ref: "#/components/responses/unauthorizedError"
+
+    /api/curricula/{id}:
+        get:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/curriculum"
+                "401":
+                    $ref: "#/components/responses/unauthorizedError"
+                "404":
+                    $ref: "#/components/responses/notFoundError"
+        patch:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                curriculumName:
+                                    type: string
+                                    example: "Gen physics"
+                                curriculumDescription:
+                                    type: string
+                                    example: "University physics for year 1"
+                                accessLevel:
+                                    type: string
+                                    enum:
+                                        - public
+                                        - inviteOnly
+                                        - private
+                                addSubLearningNode:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: learningNodeID
+                                deleteLearningNode:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: learningNodeID
+            responses:
+                "200":
+                    description: success
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: success
+
+    /api/curricula:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                curriculumName:
+                                    type: string
+                                    example: "Gen physics"
+                                curriculumDescription:
+                                    type: string
+                                    example: "University physics for year 1"
+                                accessLevel:
+                                    type: string
+                                    enum:
+                                        - public
+                                        - inviteOnly
+                                        - private
+                                subLearningNode:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: learningNodeId
+            responses:
+                "200":
+                    description: Everything went fine
+
+    /api/learning-nodes/{id}:
+        get:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/learningNode"
+        patch:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                learningNodeName:
+                                    type: string
+                                learningNodeDescription:
+                                    type: string
+                                addCurriculums:
+                                    type: array
+                                    items:
+                                        type: string
+                                deleteCurriculums:
+                                    type: array
+                                    items:
+                                        type: string
+                                addSubNode:
+                                    type: array
+                                    items:
+                                        type: string
+                                deleteSubNode:
+                                    type: array
+                                    items:
+                                        type: string
+                                addNextLearningNodeId:
+                                    type: array
+                                    items:
+                                        type: string
+                                delNextLearningNodeId:
+                                    type: array
+                                    items:
+                                        type: string
+                                addPreviousLearningNodeId:
+                                    type: array
+                                    items:
+                                        type: string
+                                delPreviousLearningNodeId:
+                                    type: array
+                                    items:
+                                        type: string
+            responses:
+                "200":
+                    description: success
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: success
+    /api/learning-nodes:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                learningNodeName:
+                                    type: string
+                                learningNodeDescription:
+                                    type: string
+                                curriculums:
+                                    type: array
+                                    items:
+                                        type: string
+                                subNode:
+                                    type: array
+                                    items:
+                                        type: string
+                                nextLearningNodeId:
+                                    type: array
+                                    items:
+                                        type: string
+                                previousLearningNodeId:
+                                    type: array
+                                    items:
+                                        type: string
+            responses:
+                "200":
+                    description: Everything went fine
+
+    /api/nodes/{id}:
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: success
+
+    /api/nodes:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                type:
+                                    type: string
+                                    enum:
+                                        - pdfNode
+                                        - videoNode
+                                        - textNode
+                                        - soundNode
+                                        - imageNode
+                                attributes:
+                                    type: object
+                                    properties:
+                                        priority:
+                                            type: string
+                                            enum:
+                                                - require
+                                                - extension
+                                                - optional
+            responses:
+                "200":
+                    description: Everything went fine
+
+
+    /resources/video/{id}:
+        get:
+            parameters:
+                    - name: id
+                      in: path
+                      required: true
+                      schema:
+                          type: string
+            responses:
+                "200":
+                    description: Everything went fine
+    /resources/video:
+        post:
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                nodeId:
+                                    type: string
+                                userId:
+                                    type: string
+                                fileName:
+                                    type: string
+                                    format: binary
+            responses:
+                "200":
+                    description: Everything went fine
+
+    /resources/pdf/{id}:
+        get:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Everything went fine
+    /resources/pdf:
+        post:
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                nodeId:
+                                    type: string
+                                userId:
+                                    type: string
+                                fileName:
+                                    type: string
+                                    format: binary
+            responses:
+                "200":
+                    description: Everything went fine
+
+    /resources/text/{id}:
+        get:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Everything went fine
+    /resources/text:
+        post:
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                nodeId:
+                                    type: string
+                                userId:
+                                    type: string
+                                fileName:
+                                    type: string
+                                    format: binary
+            responses:
+                "200":
+                    description: Everything went fine
+
+    /resources/image/{id}:
+        get:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Everything went fine
+
+    /resources/image:
+        post:
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                nodeId:
+                                    type: string
+                                userId:
+                                    type: string
+                                fileName:
+                                    type: string
+                                    format: binary
+            responses:
+                "200":
+                    description: Everything went fine
+    /resources/sound/{id}:
+        get:
+            parameters:
+                    - name: id
+                      in: path
+                      required: true
+                      schema:
+                          type: string
+            responses:
+                "200":
+                    description: Everything went fine
+    /resources/sound:
+        post:
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                nodeId:
+                                    type: string
+                                userId:
+                                    type: string
+                                fileName:
+                                    type: string
+                                    format: binary
+            responses:
+                "200":
+                    description: Everything went fine

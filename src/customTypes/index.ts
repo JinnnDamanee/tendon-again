@@ -16,7 +16,7 @@ export enum StatusType {
 }
 
 export interface LearningNodeProps {
-    courseId: number
+    courseId: string
     courseName: string
     status: StatusType
     next?: LearningNodeProps[]
@@ -24,10 +24,24 @@ export interface LearningNodeProps {
 
 export interface RenderLearningNodeProps {
     // renderId: number
-    courseId: number
+    courseId: string
     courseName: string
     status: StatusType
     next?: RenderLearningNodeProps[]
     setChildReady: (value: boolean) => void
     isRender: boolean
 }
+
+// export type Node = {
+//     id: string
+//     name: string
+//     type: "pdfNode" | "videoNode" | "textNode" | "soundNode" | "imageNode"
+//     attributes: {
+//         priority: "require" | "extension" | "optional";
+//         size: number;
+//         /** @example "/resources/pdf/1234" */
+//         resources: string;
+//     };
+// }
+
+export * from './mockData'

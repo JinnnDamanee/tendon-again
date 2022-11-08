@@ -1,4 +1,5 @@
-import { StatusType } from 'types'
+import { Node } from '@customTypes/tendonAPItype'
+import { StatusType } from 'customTypes'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
@@ -6,7 +7,7 @@ import { useXarrow } from 'react-xarrows'
 
 type LearningNodeProps = {
     statusColor: string
-    courseId: number
+    courseId: string
     courseName: string
     isRender: boolean
     status: StatusType
@@ -16,16 +17,6 @@ const LearningNode = ({ statusColor, courseId, courseName, isRender, status }: L
     const updateArrow = useXarrow();
     const router = useRouter();
     const nodeRef = useRef(null);
-
-    const subNode = {
-        type: "pdfNode",
-        id: "string",
-        attributes: {
-            "priority": "require",
-            "size": 0,
-            "resources": "/resources/pdf/1234"
-        }
-    }
 
     return (
         <>
@@ -43,8 +34,8 @@ const LearningNode = ({ statusColor, courseId, courseName, isRender, status }: L
                         ref={nodeRef}
                         exit={{ opacity: 0, scale: 0 }}
                         transition={{ duration: 0.2, type: 'spring', stiffness: 100 }}
-                        //drag
-                        dragConstraints={nodeRef}
+                        // drag
+                        // dragConstraints={nodeRef}
                         whileTap={{ scale: 0.9 }}
                         whileHover={{ scale: 1.1 }}
                         onUpdate={() => {
@@ -53,21 +44,10 @@ const LearningNode = ({ statusColor, courseId, courseName, isRender, status }: L
                         onClick={() => {
                             router.push({
                                 pathname: `${router.asPath}/${courseId}`,
-                                query: {
-                                    data: JSON.stringify(subNode),
-                                    parentName: courseName
-                                }
                             })
                         }}
                     >
                         <h1>{courseName}</h1>
-                        {/* <AnimatePresence
-                exitBeforeEnter
-                >
-                {
-                    isOpen && <CourseDetail courseData={courseData} />
-                }
-            </AnimatePresence> */}
                     </motion.button>
                 </div>
             )}

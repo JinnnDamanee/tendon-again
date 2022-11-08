@@ -3,34 +3,23 @@ import { motion } from 'framer-motion'
 import Xarrow, { Xwrapper } from 'react-xarrows'
 import { useTheme } from "next-themes";
 import React, { useEffect, useMemo, useState } from "react"
-import { MockRelateCourse } from "@data/graphNode";
-import { LearningNodeProps, StatusType } from "types";
+import { LearningNodeProps } from "customTypes";
 import ArrowBox from "../baseComponents/ArrowBox";
 import { prepNode } from "./LeaningNodeViewModel";
 
-interface CourseMapProps {
-    courseId: number
+interface LearningNodeMapProps {
+    learningNodeData: LearningNodeProps
 }
-
 // Entire View of the Course Map (Container)
-const LearningNodeMap = ({ courseId }: CourseMapProps) => {
+const LearningNodeMap = ({ learningNodeData }: LearningNodeMapProps) => {
     const { theme } = useTheme();
     const [childReady, setChildReady] = useState(false);
     const [onClient, setOnClient] = useState(false);
 
-    const startCourseNode: LearningNodeProps = {
-        courseId: courseId,
-        courseName: "Introduction to Programming",
-        status: StatusType.COMPLETED,
-        next: MockRelateCourse
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const mappedNodeprop = useMemo(() => prepNode(startCourseNode, setChildReady), [])
+    const mappedNodeprop = useMemo(() => prepNode(learningNodeData, setChildReady), [learningNodeData])
 
     useEffect(() => {
         setOnClient(true)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (!onClient) return null;
@@ -44,10 +33,10 @@ const LearningNodeMap = ({ courseId }: CourseMapProps) => {
                 {/* Start Node */}
                 <CourseNode
                     // renderId={startCourseNode.courseId} // Types require this, but it's not used
-                    key={startCourseNode.courseId}
-                    courseId={startCourseNode.courseId}
-                    courseName={startCourseNode.courseName}
-                    status={startCourseNode.status}
+                    key={learningNodeData.courseId}
+                    courseId={learningNodeData.courseId}
+                    courseName={learningNodeData.courseName}
+                    status={learningNodeData.status}
                     setChildReady={() => { }} // No Child will use this one so it's fine
                     isRender={true}
                 />
@@ -68,7 +57,7 @@ const LearningNodeMap = ({ courseId }: CourseMapProps) => {
                                         childReady && (
                                             <ArrowBox>
                                                 <Xarrow
-                                                    start={startCourseNode.courseId.toString()}
+                                                    start={learningNodeData.courseId.toString()}
                                                     end={item.courseId.toString()}
                                                     color={theme === 'light' ? '#475569' : '#961EFF'}
                                                 />

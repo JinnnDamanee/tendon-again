@@ -2,10 +2,10 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@types/*": ["types/*"],
+      "@customTypes/*": ["customTypes/*"],
       "@data/*": ["data/*"],
       "@components/*": ["components/*"],
-      "@baseComponents/*" : ["components/baseComponents/*"]
+      "@baseComponents/*" : ["components/baseComponents/*"],
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

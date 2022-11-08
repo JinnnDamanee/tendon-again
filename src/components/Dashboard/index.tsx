@@ -5,10 +5,10 @@ import Statistic from "./Statistic";
 import { AnimatePresence, motion } from "framer-motion";
 import Setting from "./setting";
 import { IoCaretForwardOutline } from 'react-icons/io5'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import ResumeList from "./resume/ResumeList";
-import { modeType } from "types";
+import { modeType } from "customTypes";
 import NavigateButton from "./NavigateButton";
 import DashBoardContainer from "@components/baseComponents/DashBoardContainer";
 
@@ -41,7 +41,9 @@ const DashBoard = () => {
         <motion.div
             className="flex gap-x-20 justify-center"
         >
-            <DashBoardContainer mode={mode}>
+            <DashBoardContainer
+                mode={mode}
+            >
                 <NavigateButton
                     direction="left"
                     Icon={AiOutlineSearch}

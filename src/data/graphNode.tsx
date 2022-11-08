@@ -1,4 +1,4 @@
-import { CourseNodeProps, StatusType } from "../types";
+import { CourseNodeProps, StatusType } from "../customTypes";
 
 export const MockRelateCourse: CourseNodeProps[] = [
     {

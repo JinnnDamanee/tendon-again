@@ -1,4 +1,4 @@
-import { LearningNodeProps, RenderLearningNodeProps, StatusType } from "../../types";
+import { LearningNodeProps, RenderLearningNodeProps, StatusType } from "../../customTypes";
 /*
     View Model
 */
@@ -21,7 +21,7 @@ export const prepNode = (
     defaultSetChildReady: (value: boolean) => void): RenderLearningNodeProps[] => {
 
     const outputNode: RenderLearningNodeProps[] = [];
-    const nodeHistory: number[] = [];
+    const nodeHistory: string[] = [];
 
     // Recursive function to map the node
     const mapToRenderProps = (node: LearningNodeProps): RenderLearningNodeProps => {
