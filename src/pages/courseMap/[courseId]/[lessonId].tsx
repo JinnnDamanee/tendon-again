@@ -15,7 +15,7 @@ const getLearningNodeById = (id: string): LearningNode => {
 const Lesson = () => {
     const router = useRouter();
     const nodeId = router.query.nodeId ? router.query.nodeId.toString() : "";
-    const { setPathList } = useBreadCrumb()
+    const { pathList, setPathList } = useBreadCrumb()
 
     useEffect(() => {
         setPathList((prev) => [

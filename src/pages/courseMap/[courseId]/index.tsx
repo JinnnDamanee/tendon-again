@@ -25,7 +25,6 @@ const CoursePage = () => {
     const { pathList, setPathList } = useBreadCrumb()!
 
     useEffect(() => {
-        console.log('setpathList');
         setPathList([
             {
                 name: 'Dashboard',

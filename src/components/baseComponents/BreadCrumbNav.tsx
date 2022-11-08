@@ -27,6 +27,7 @@ const BreadCrumbNav = () => {
                                     <NavItem
                                         name={path.name}
                                         link={path.link}
+                                        isActive={true}
                                     />
                                 </li>
                             )
@@ -40,15 +41,23 @@ const BreadCrumbNav = () => {
 }
 
 type NavItemProps = {
-    name: string | string[];
-    link: string;
+    name: string
+    link: string
+    isActive: boolean
 }
 
-const NavItem = ({ name, link }: NavItemProps) => {
+const NavItem = ({ name, link, isActive }: NavItemProps) => {
     return (
-        <Link href={link}>
-            {name}
-        </Link>
+        <>
+            {
+                isActive ? (
+                    <Link href={link}>
+                        {name}
+                    </Link>)
+                    :
+                    <span>{name}</span>
+            }
+        </>
     )
 }
 export default BreadCrumbNav;
