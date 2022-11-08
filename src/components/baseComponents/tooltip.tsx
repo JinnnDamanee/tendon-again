@@ -15,6 +15,4 @@ const Tooltip = ({ children, title }: ITooltip) => {
         </motion.main >
     )
 }
-export {
-    Tooltip
-}
+export default Tooltip;
