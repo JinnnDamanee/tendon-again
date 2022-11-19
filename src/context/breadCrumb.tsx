@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState } from "react";
 type path = {
     name: string;
     link: string;
-    isActive: boolean;
 }
 
 type providedValueProp = {

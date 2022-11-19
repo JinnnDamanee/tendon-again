@@ -18,10 +18,12 @@ const getCurriculaNodeData = (courseId: string): LearningNodeProps => {
         next: MockRelateCourse
     }
 }
+
 const CoursePage = () => {
     const router = useRouter();
     const courseId = router.query.courseId ? router.query.courseId.toString() : "";
     const curriculaData = getCurriculaNodeData(courseId);
+
     const { pathList, setPathList } = useBreadCrumb()!
 
     useEffect(() => {
@@ -29,12 +31,10 @@ const CoursePage = () => {
             {
                 name: 'Dashboard',
                 link: '/',
-                isActive: true
             },
             {
                 name: curriculaData.courseName,
                 link: `/courseMap/${courseId}`,
-                isActive: false
             }
         ])
         console.log(pathList);

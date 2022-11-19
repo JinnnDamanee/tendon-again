@@ -15,15 +15,14 @@ const getLearningNodeById = (id: string): LearningNode => {
 const Lesson = () => {
     const router = useRouter();
     const nodeId = router.query.nodeId ? router.query.nodeId.toString() : "";
-    const { pathList, setPathList } = useBreadCrumb()
+    const { setPathList } = useBreadCrumb()
 
     useEffect(() => {
         setPathList((prev) => [
             ...prev,
             {
                 name: mockLearningNode.attributes?.learningNodeName || 'Error',
-                link: 'มีไปก็ไม่ได้กด',
-                isActive: false
+                link: 'มีไปก็กดไม่ได้',
             }
         ])
         // eslint-disable-next-line react-hooks/exhaustive-deps

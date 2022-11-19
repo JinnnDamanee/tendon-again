@@ -5,7 +5,6 @@ import { useBreadCrumb } from 'context/breadCrumb';
 import { useEffect } from 'react';
 
 const BreadCrumbNav = () => {
-    // const router = useRouter();
     const { pathList } = useBreadCrumb()
 
     useEffect(() => {
@@ -24,11 +23,20 @@ const BreadCrumbNav = () => {
                         pathList.map((path, index) => {
                             return (
                                 <li key={index}>
-                                    <NavItem
-                                        name={path.name}
-                                        link={path.link}
-                                        isActive={true}
-                                    />
+                                    {
+                                        index == pathList.length - 1 ?
+                                            <NavItem
+                                                name={path.name}
+                                                link={path.link}
+                                                isActive={false}
+                                            /> :
+                                            <NavItem
+                                                name={path.name}
+                                                link={path.link}
+                                                isActive={true}
+                                            />
+                                    }
+
                                 </li>
                             )
                         })
@@ -46,6 +54,7 @@ type NavItemProps = {
     isActive: boolean
 }
 
+
 const NavItem = ({ name, link, isActive }: NavItemProps) => {
     return (
         <>
@@ -61,40 +70,3 @@ const NavItem = ({ name, link, isActive }: NavItemProps) => {
     )
 }
 export default BreadCrumbNav;
-
-
-/*
-<>
-                        {
-                            <li>
-                                <NavItem
-                                    name={'Dashboard'}
-                                    link={'/'}
-                                />
-                            </li>
-                        }
-                        {
-                            router.query.courseId && (
-                                <li>
-                                    <NavItem
-                                        name={router.query.courseId}
-                                        link={`/courseMap/${router.query.courseId}`}
-                                    />
-                                </li>
-                            )
-                        }
-                        {
-                            router.query.lessonId && (
-                                <li>
-                                    { <NavItem
-                                            name={router.query.lessonId}
-                                            link={`/courseMap/${router.query.lessonId}`}
-                                        /> }
-<span>
-    {router.query.lessonId}
-</span>
-                                </li >
-                            )
-                        }
-                    </>
-*/
