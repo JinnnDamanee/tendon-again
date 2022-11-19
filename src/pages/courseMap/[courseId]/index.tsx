@@ -5,7 +5,7 @@ import LoadingSpinner from "@components/baseComponents/LoadingSpinner";
 import MainLayout from "@components/layout/MainLayout";
 import { MockRelateCourse } from "@data/graphNode";
 import { LearningNodeProps, StatusType } from "@customTypes/index";
-import { BreadcrumbProvider, useBreadCrumb } from "context/breadCrumb";
+import { useBreadCrumb } from "context/breadCrumb";
 
 const CourseMap = dynamic(() => import("@components/curriculaMap"));
 

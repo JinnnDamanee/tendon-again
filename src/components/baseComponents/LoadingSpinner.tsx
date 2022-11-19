@@ -3,9 +3,9 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 const LoadingSpinner = () => {
     return (
         <motion.main
-            className='fill-slate-200 animate-spin text-6xl'
+            className='absolute top-1/2 left-1/2'
         >
-            <AiOutlineLoading3Quarters />
+            <AiOutlineLoading3Quarters className='fill-slate-200 animate-spin text-6xl' />
         </motion.main>
     )
 }

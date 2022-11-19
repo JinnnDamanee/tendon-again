@@ -15,7 +15,7 @@ const BreadCrumbNav = () => {
     return (
         <BreadCrumbContainer>
             <div className='rounded-full overflow-hidden flex justify-center items-center'>
-                <Image src={'https://raw.githubusercontent.com/JinDamanee2544/tendon-again/main/src/image/S__38969413.jpg'} alt='user' height={50} width={50} />
+                <Image src={'/raiden.jpg'} alt='user' height={50} width={50} />
             </div>
             <div className="font-bold breadcrumbs p-2 overflow-hidden">
                 <ul>

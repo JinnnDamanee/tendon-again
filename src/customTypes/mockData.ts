@@ -37,6 +37,36 @@ export const mockLearningNode: LearningNode = {
                     "size": 0,
                     "resources": "/resources/pdf/1234"
                 }
+            },
+            {
+                name: "TEST TEXT",
+                type: "textNode",
+                id: "string",
+                attributes: {
+                    "priority": "require",
+                    "size": 0,
+                    "resources": "/resources/pdf/1234"
+                }
+            },
+            {
+                name: "TEST IMAGE",
+                type: "imageNode",
+                id: "string",
+                attributes: {
+                    "priority": "require",
+                    "size": 0,
+                    "resources": "/resources/pdf/1234"
+                }
+            },
+            {
+                name: "TEST SOUND",
+                type: "soundNode",
+                id: "string",
+                attributes: {
+                    "priority": "require",
+                    "size": 0,
+                    "resources": "/resources/pdf/1234"
+                }
             }
         ],
         nextLearningNodeId: [

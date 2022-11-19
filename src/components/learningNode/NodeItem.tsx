@@ -1,9 +1,9 @@
 import { Node } from '@customTypes/tendonAPItype';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 import { AiFillFilePdf, AiFillSound } from 'react-icons/ai';
 import { FaVideo, FaImage } from 'react-icons/fa'
 import { ImParagraphJustify } from 'react-icons/im'
+import { resSource } from '.';
 
 const useNodeIconMatcher = (type: string) => {
     switch (type) {
@@ -23,23 +23,40 @@ const useNodeIconMatcher = (type: string) => {
     }
 }
 
-const NodeItem = ({ type, attributes, id, name }: Node) => {
-    const router = useRouter();
+interface NodeItemProps extends Node {
+    setIsOpened: (value: boolean) => void
+    setResSource: (value: resSource) => void
+}
+
+const NodeItem = ({ type, attributes, id, name, setIsOpened, setResSource }: NodeItemProps) => {
     const Icon = useNodeIconMatcher(type) // eslint-disable-line
 
+    const handleOnClick = () => {
+        switch (type) {
+            case 'textNode':
+                setIsOpened(true)
+                setResSource({
+                    resLink: attributes.resources,
+                    resType: type
+                })
+            default:
+        }
+    }
+
     return (
-        <motion.button
+        <button
             className='flex gap-6 items-center p-4 bg-slate-200 dark:bg-gray-light rounded-2xl hover:scale-105 duration-200 active:translate-y-1'
-            onClick={() => {
-                console.log(type)
-                // router.push(lessonData.attributes.resources)
-            }}
+            onClick={() => handleOnClick()}
         >
             <div className='bg-white dark:bg-slate-500 p-1.5 rounded-full scale-150'>
                 {Icon}
             </div>
-            <p className='text-lg'>{name}</p>
-        </motion.button>
+            {
+                type != 'pdfNode' ?
+                    <p className='text-lg'>{name}</p> :
+                    <a href={'/cd.pdf'} target='_blank' rel='noopener noreferrer' className='text-lg'>{name}</a>
+            }
+        </button>
     )
 }
 
