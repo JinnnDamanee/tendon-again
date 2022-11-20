@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import useLocalStorage from "hooks/useLocalStorage";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type path = {
     name: string;

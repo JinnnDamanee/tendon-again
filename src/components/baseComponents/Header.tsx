@@ -5,12 +5,12 @@ import BreadCrumbNav from "@baseComponents/BreadCrumbNav"
 const Header = () => {
     const router = useRouter();
     return (
-        <div className="flex justify-end m-4">
-            <ThemeToggle />
+        <>
             {router.pathname !== '/' &&
                 <BreadCrumbNav />
             }
-        </div>
+            <ThemeToggle />
+        </>
     )
 }
 

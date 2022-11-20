@@ -4,12 +4,12 @@ const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <main className="flex justify-end mt-4 mr-4">
+        <main className="flex justify-end mt-8 mr-8">
             <input
                 type="checkbox"
                 className="toggle"
-                onChange={() => theme === 'light' ? setTheme('dark') : setTheme('light')}
-                defaultChecked={theme === 'dark'}
+                onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+                checked={theme === 'dark'}
             />
         </main>
     )

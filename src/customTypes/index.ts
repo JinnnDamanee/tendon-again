@@ -32,6 +32,11 @@ export interface RenderLearningNodeProps {
     isRender: boolean
 }
 
+export type resSource = {
+    resLink: string
+    resType: string
+}
+
 // export type Node = {
 //     id: string
 //     name: string

@@ -6,6 +6,8 @@ import MainLayout from "@components/layout/MainLayout";
 import { MockRelateCourse } from "@data/graphNode";
 import { LearningNodeProps, StatusType } from "@customTypes/index";
 import { useBreadCrumb } from "context/breadCrumb";
+import useLocalStorage from "hooks/useLocalStorage";
+import useNavPath from "hooks/useNavPath";
 
 const CourseMap = dynamic(() => import("@components/curriculaMap"));
 
@@ -23,8 +25,14 @@ const CoursePage = () => {
     const router = useRouter();
     const courseId = router.query.courseId ? router.query.courseId.toString() : "";
     const curriculaData = getCurriculaNodeData(courseId);
+    const { pathList, setPathList } = useBreadCrumb()
+    const [storedPath, setStoredPath] = useLocalStorage('path', pathList);
 
-    const { pathList, setPathList } = useBreadCrumb()!
+    // useNavPath({
+    //     page: 'CurriculaNode',
+    //     curriculaData: curriculaData,
+    //     courseId: courseId
+    // })
 
     useEffect(() => {
         setPathList([
@@ -37,8 +45,7 @@ const CoursePage = () => {
                 link: `/courseMap/${courseId}`,
             }
         ])
-        console.log(pathList);
-
+        setStoredPath(pathList);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

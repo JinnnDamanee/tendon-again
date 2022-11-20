@@ -1,9 +1,8 @@
+import { resSource } from '@customTypes/index';
 import { Node } from '@customTypes/tendonAPItype';
-import { motion } from 'framer-motion';
 import { AiFillFilePdf, AiFillSound } from 'react-icons/ai';
 import { FaVideo, FaImage } from 'react-icons/fa'
 import { ImParagraphJustify } from 'react-icons/im'
-import { resSource } from '.';
 
 const useNodeIconMatcher = (type: string) => {
     switch (type) {

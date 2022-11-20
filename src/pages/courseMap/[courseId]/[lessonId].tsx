@@ -4,9 +4,10 @@ import LessonNode from "@components/learningNode";
 import { mockLearningNode } from "@customTypes/mockData";
 import { LearningNode } from "@customTypes/tendonAPItype";
 import { useBreadCrumb } from "context/breadCrumb";
+import useLocalStorage from "hooks/useLocalStorage";
+import useNavPath from "hooks/useNavPath";
 import { useRouter } from "next/router";
 import { Suspense, useEffect } from "react";
-import { Fa500Px } from "react-icons/fa";
 
 // Fetch Learning Node Data
 const getLearningNodeById = (id: string): LearningNode => {
@@ -17,6 +18,13 @@ const Lesson = () => {
     const router = useRouter();
     const nodeId = router.query.nodeId ? router.query.nodeId.toString() : "";
     const { pathList, setPathList } = useBreadCrumb()
+    const [storedPath, setStoredPath] = useLocalStorage('path', pathList);
+    const mockLearningNode = getLearningNodeById(nodeId);
+
+    // useNavPath({
+    //     page: 'LearningNode',
+    //     mockLearningNode: mockLearningNode
+    // });
 
     useEffect(() => {
         setPathList((prev) => {
@@ -28,12 +36,9 @@ const Lesson = () => {
                         link: 'มีไปก็กดไม่ได้ (ตาม Usecase)',
                     }
                 ]
-            } else {
+            } else {    // no previous path
                 return [
-                    {
-                        name: 'Dashboard',
-                        link: '/',
-                    },
+                    ...storedPath,
                     {
                         name: mockLearningNode.attributes?.learningNodeName || 'Error',
                         link: 'มีไปก็กดไม่ได้ (ตาม Usecase)',
@@ -41,6 +46,7 @@ const Lesson = () => {
                 ]
             }
         })
+        setStoredPath(pathList);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -48,7 +54,7 @@ const Lesson = () => {
         <MainLayout>
             <Suspense fallback={<LoadingSpinner />}>
                 <LessonNode
-                    LearningNodeData={getLearningNodeById(nodeId)}
+                    LearningNodeData={mockLearningNode}
                 />
             </Suspense>
         </MainLayout>

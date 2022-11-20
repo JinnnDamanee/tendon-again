@@ -52,7 +52,7 @@ export const prepNode = (
         outputNode.push(node);
     })
 
-    console.log("outputNode : ", outputNode);
+    // console.log("outputNode : ", outputNode);
 
     return outputNode;
 }

@@ -3,15 +3,9 @@ import { LearningNode } from '@customTypes/tendonAPItype';
 import { Suspense, useEffect, useState } from 'react';
 import LoadingSpinner from '@components/baseComponents/LoadingSpinner';
 import Modal from './Modal';
+import { resSource } from '@customTypes/index';
 
-// import dynamic from 'next/dynamic'
-// const Modal = dynamic(() => import('./Modal'));
-
-type LessonNodeDataProps = {
-    LearningNodeData: LearningNode
-}
-
-
+// Mock fetchings
 const getResData = ({ resLink, resType }: resSource) => {
     console.log(resLink)
     switch (resType) {
@@ -22,9 +16,8 @@ const getResData = ({ resLink, resType }: resSource) => {
     }
 }
 
-export type resSource = {
-    resLink: string
-    resType: string
+type LessonNodeDataProps = {
+    LearningNodeData: LearningNode
 }
 
 const LessonNode = ({ LearningNodeData }: LessonNodeDataProps) => {
@@ -32,11 +25,11 @@ const LessonNode = ({ LearningNodeData }: LessonNodeDataProps) => {
     const [isOpened, setIsOpened] = useState(false)
     const [resSource, setResSource] = useState<resSource>({ resLink: '', resType: '' })
     const [modalData, setModalData] = useState<any>(null)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)   // mock loading
 
-    useEffect(() => {
-        setIsLoading(true)
-    }, [])
+    // useEffect(() => {
+    //     setIsLoading(true)
+    // }, [])
 
     useEffect(() => {
         if (isOpened) {
@@ -47,7 +40,7 @@ const LessonNode = ({ LearningNodeData }: LessonNodeDataProps) => {
     return (
         <>
             {
-                !isLoading ? <LoadingSpinner /> :
+                isLoading ? <LoadingSpinner /> :
                     <>
                         {
                             <div className='flex gap-x-20 justify-center mt-10'                 >
@@ -71,7 +64,7 @@ const LessonNode = ({ LearningNodeData }: LessonNodeDataProps) => {
                                 </div>
                             </div>
                         }
-                        {
+                        {   // Modal
                             isOpened && modalData && (
                                 <Suspense fallback={<LoadingSpinner />}>
                                     <Modal
