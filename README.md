@@ -1,17 +1,18 @@
 # Tendon (Again?)
 
-LMS Extension/Addon/Stanalone? on MycourseVille (MCV)
+LMS Extension/Addon/StandAlone? on MyCourseVille (MCV)
 
 ## Features
 
-- [X] Basic Animation between pages
-- [X] Light/Dark
+- [X] Component Interaction Animation 
+- [X] Light/Dark Theme
+- [X] MindMap-liked Course Displaying
 
 ## Frontend Stack
 
 - Next.js
-- Tailwindcss
-- Framer Motion (Animation Handler)
+- TailwindCSS
+- Framer Motion
 
 ## UI Design
 
