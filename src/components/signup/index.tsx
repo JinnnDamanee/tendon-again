@@ -4,17 +4,11 @@ const SignupBox = () => {
     return (
         <motion.main
             className="bg-slate-100 dark:bg-gray-normal text-white p-6 flex gap-4 rounded-3xl min-h-[500px]"
-            // key={'dashboard'}
             initial={{ opacity: 1, y: -100, scale: 0 }}
-            // animate={mode === modeType.main ? "main" : "search"}
             animate={{
                 opacity: 1, y: 0, scale: 1,
-                // width: mode === modeType.main ? "700px" : "350px",
             }}
             exit={{ opacity: 1, y: -100, scale: 0 }}
-        // drag={mode === modeType.main ? false : true}
-        // ref={dashboardRef}
-        // dragConstraints={dashboardRef}
         >
             <motion.div
                 className='flex flex-col gap-4 p-4 bg-slate-200 dark:bg-gray-light  text-slate-700 dark:text-white rounded-xl'

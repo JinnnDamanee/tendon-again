@@ -38,7 +38,7 @@ const DashBoard = () => {
     }
 
     return (
-        <motion.div
+        <div
             className="flex gap-x-20 justify-center"
         >
             <DashBoardContainer
@@ -71,7 +71,7 @@ const DashBoard = () => {
             </DashBoardContainer>
             {mode === modeType.resume && <ResumeList />}
 
-        </motion.div>
+        </div>
     )
 }
 export default DashBoard;
