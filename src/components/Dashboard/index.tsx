@@ -3,7 +3,7 @@ import Acheivement from "./Acheivement";
 import Activity from "./Activity";
 import Statistic from "./Statistic";
 import { AnimatePresence, motion } from "framer-motion";
-import Setting from "./setting";
+import Setting from "@components/dashboard/setting";
 import { IoCaretForwardOutline } from 'react-icons/io5'
 import { useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
