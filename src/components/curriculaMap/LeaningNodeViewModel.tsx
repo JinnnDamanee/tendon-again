@@ -32,11 +32,10 @@ export const prepNode = (
             isShouldRender = true;
             nodeHistory.push(node.courseId);
         }
-        const next: any = node.next === undefined ? undefined : node.next.map(childNode => {
+        const next: RenderLearningNodeProps[] | undefined = node.next === undefined ? undefined : node.next.map(childNode => {
             return mapToRenderProps(childNode)
         })
         const mapNode: RenderLearningNodeProps = {
-            // renderId: uuidv4(),
             courseId: node.courseId,
             courseName: node.courseName,
             status: node.status,

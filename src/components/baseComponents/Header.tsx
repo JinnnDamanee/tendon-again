@@ -4,7 +4,7 @@ import BreadCrumbNav from "@baseComponents/BreadCrumbNav"
 
 const Header = () => {
     const router = useRouter();
-    const noNavPath = ['/', '/login', 'signup']
+    const noNavPath = ['/', '/login', '/signup']
     return (
         <>
             {!noNavPath.includes(router.pathname) &&

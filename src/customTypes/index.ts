@@ -15,7 +15,7 @@ export enum StatusType {
     'COMPLETED', 'INPROGRESS', 'NOTSTARTED'
 }
 
-export interface LearningNodeProps {
+export type LearningNodeProps = {
     courseId: string
     courseName: string
     status: StatusType
