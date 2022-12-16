@@ -1,7 +1,6 @@
-
 import { motion } from 'framer-motion'
 import { IconType } from 'react-icons'
-import Tooltip from '@baseComponents/Tooltip';
+import Tooltip from '../../baseComponents/Tooltip'
 
 interface ControlBtnProps {
     Icon: IconType
