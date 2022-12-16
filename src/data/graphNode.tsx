@@ -1,40 +1,42 @@
-import { CourseNodeProps, StatusType } from "../customTypes";
+import { LearningNodeProps, StatusType } from "../customTypes";
 
-export const MockRelateCourse: CourseNodeProps[] = [
+
+
+export const MockRelateCourse: LearningNodeProps[] = [
     {
-        courseId: 2,
+        courseId: '2',
         courseName: "First",
         status: StatusType.COMPLETED,
         next: [
             {
-                courseId: 3,
+                courseId: '3',
                 courseName: "Framework",
                 status: StatusType.INPROGRESS,
                 next: [
                     {
-                        courseId: 4,
+                        courseId: '4',
                         courseName: "React",
                         status: StatusType.NOTSTARTED,
                     },
                     {
-                        courseId: 5,
+                        courseId: '5',
                         courseName: "Vue",
                         status: StatusType.NOTSTARTED,
                     },
                 ]
             },
             {
-                courseId: 7,
+                courseId: '7',
                 courseName: "Language",
                 status: StatusType.NOTSTARTED,
                 next: [
                     {
-                        courseId: 8,
+                        courseId: '8',
                         courseName: "JavaScript",
                         status: StatusType.NOTSTARTED,
                     },
                     {
-                        courseId: 9,
+                        courseId: '9',
                         courseName: "TypeScript",
                         status: StatusType.NOTSTARTED,
                     },
@@ -43,12 +45,12 @@ export const MockRelateCourse: CourseNodeProps[] = [
         ]
     },
     {
-        courseId: 6,
+        courseId: '6',
         courseName: "Second",
         status: StatusType.COMPLETED,
         next: [
             {
-                courseId: 7,
+                courseId: '7',
                 courseName: "Language",
                 status: StatusType.NOTSTARTED,
             }
