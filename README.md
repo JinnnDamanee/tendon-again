@@ -6,7 +6,7 @@ LMS Extension/Addon/StandAlone? on MyCourseVille (MCV)
 
 - [X] Component Interaction Animation 
 - [X] Light/Dark Theme
-- [X] MindMap-liked Course Displaying
+- [X] MindMap-liked Course Display
 
 ## Frontend Stack
 
