@@ -6,7 +6,7 @@ interface ITooltip {
     title: string;
 }
 
-export const Tooltip = ({ children, title }: ITooltip) => {
+const Tooltip = ({ children, title }: ITooltip) => {
     return (
         <main
         >
@@ -16,3 +16,4 @@ export const Tooltip = ({ children, title }: ITooltip) => {
         </main >
     )
 }
+export default Tooltip;
